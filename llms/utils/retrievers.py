@@ -49,7 +49,7 @@ async def search_tavily(query: str, api_key: str = None, max_results=5):
             r = await client.post(url, headers=headers, json=data)
             print(r.text)
             results = r.json()["results"]
-            return json.dumps(results)
+            return json.dumps(results, ensure_ascii=False)
         except Exception as e:
             print(e)
             return "内容提取失败"

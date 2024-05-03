@@ -3,7 +3,7 @@
 """
 import json
 
-from . import qwen, agents
+from . import qwen, agents, glm
 from .config import config
 from .utils import prompts
 from .services import ChatService
@@ -12,7 +12,10 @@ from .services import ChatService
 def get_llm_model(platform: str = "tongyi", api_key: str = None):
     """获取大模型的询问工具"""
     if platform == "tongyi":
-        llm = qwen.QWenModel(api_key)
+        llm = qwen.QWenModel(api_key=api_key)
+        return llm
+    elif platform == "glm":
+        llm = glm.GLMModel(api_key=api_key)
         return llm
     return None
 
@@ -30,6 +33,7 @@ async def ask_central_brain(raw_question: str):
     prompt = prompts.get_classifier_prompt().format(question=raw_question)
     s = prompts.get_classifier_master_prompt()
     classifier_res = await llm.ask_model(question=prompt, system_prompt=s)
+    print(f"raw_classifier_res: {classifier_res}")
     classifier_res = json.loads(classifier_res)
     print(f"智脑分类结果：{classifier_res}")
 
@@ -52,6 +56,7 @@ async def ask_central_brain(raw_question: str):
 
     # 携带 context 向大模型提问 raw_question
     assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
+    print("assemble_prompt", assemble_prompt)
     s = prompts.get_kurisu_prompt()
     assemble_res = await llm.ask_model(question=assemble_prompt, system_prompt=s, message_history=chat_history_list)
 
