@@ -1,9 +1,9 @@
 from datetime import datetime
 
 
-def get_classifier_prompt():
+def get_classifier_prompt(question: str):
     """获取分类 prompt 模板"""
-    prompt = '''
+    prompt = f'''
     做个深呼吸，一步步根据用户问题，分成一个或多个小问题，并判断每个小问题的类型，并从小问题中提取关键信息。下面<Type></Type>标记中的是类型：
     <Type>
     1: 带有网页链接的问题, 例子："总结页面的内容： https://www.baidu.com "
