@@ -6,17 +6,19 @@ agents 应该被写成一个目录，而 type 应该是一个 .py 文件
 """
 from typing import Union
 
-from .utils import prompts, retrievers
-from .llms.base import BaseLLMModel
-from .llms.qwen import QWenModel
 from .config import config
+from .utils import prompts, retrievers
+from .llms import BaseLLMModel, DashscopeModel, GLMModel
 
 
 class Type1:
     """提取页面内容"""
 
     @staticmethod
-    async def summarize_weblink_content(llm: Union[QWenModel, BaseLLMModel], question: str):
+    async def summarize_weblink_content(
+            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
+            question: str
+    ):
         prompt = f'''
             请从我的问题中提取出网页链接，不要有其他信息。
             我的要求是:
@@ -46,7 +48,10 @@ class Type2:
     """联网查询"""
 
     @staticmethod
-    async def get_search_result(llm: Union[QWenModel, BaseLLMModel], question: str):
+    async def get_search_result(
+            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
+            question: str
+    ):
         prompt = f'''
         请从我的问题中提出要搜索的内容，不要有其他信息。
         我的要求是：

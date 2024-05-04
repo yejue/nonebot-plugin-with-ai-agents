@@ -4,19 +4,19 @@
 import json
 
 from . import agents
-from .llms import qwen, glm
+from .llms import DashscopeModel, GLMModel
 from .config import config
 from .utils import prompts
 from .services import ChatService
 
 
-def get_llm_model(platform: str = "tongyi", api_key: str = None):
+def get_llm_model(platform: str = "dashscope", api_key: str = None):
     """获取大模型的询问工具"""
-    if platform == "tongyi":
-        llm = qwen.QWenModel(api_key=api_key)
+    if platform == "dashscope":
+        llm = DashscopeModel(api_key=api_key)
         return llm
     elif platform == "glm":
-        llm = glm.GLMModel(api_key=api_key)
+        llm = GLMModel(api_key=api_key)
         return llm
     return None
 

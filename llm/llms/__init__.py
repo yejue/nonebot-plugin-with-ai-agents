@@ -1,3 +1,3 @@
 from .base import BaseLLMModel
 from .glm import GLMModel
-from .qwen import QWenModel
+from .dashscope import DashscopeModel

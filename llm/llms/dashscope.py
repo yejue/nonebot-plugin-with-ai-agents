@@ -1,5 +1,5 @@
 """
-阿里通义千问模型
+灵织模型服务（通义千问、llama、百川等）
 相关文档链接：https://help.aliyun.com/zh/dashscope/developer-reference/quick-start
 """
 import httpx
@@ -7,7 +7,8 @@ import httpx
 from .base import BaseLLMModel
 
 
-class QWenModel(BaseLLMModel):
+class DashscopeModel(BaseLLMModel):
+    """灵织模型服务"""
 
     def __init__(self, api_key):
         self.api_key = api_key
