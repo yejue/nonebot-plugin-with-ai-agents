@@ -3,7 +3,7 @@ from nonebot.rule import to_me
 from nonebot.adapters import Message
 from nonebot.params import CommandArg
 
-from .llms import central_brain
+from .llm import central_brain
 
 agents = on_command("", rule=to_me(), priority=999, block=True)
 

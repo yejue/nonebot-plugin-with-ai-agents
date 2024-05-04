@@ -7,8 +7,8 @@ agents 应该被写成一个目录，而 type 应该是一个 .py 文件
 from typing import Union
 
 from .utils import prompts, retrievers
-from .base import BaseLLMModel
-from .qwen import QWenModel
+from .llms.base import BaseLLMModel
+from .llms.qwen import QWenModel
 from .config import config
 
 

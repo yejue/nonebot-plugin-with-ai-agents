@@ -13,3 +13,6 @@ class Config(BaseModel):
 
 
 config = Config()
+print(config.AI_AGENT_KEY)
+print(config.AI_AGENT_PLATFORM)
+print(config.TAVILY_API_KEY)

@@ -3,7 +3,8 @@
 """
 import json
 
-from . import qwen, agents, glm
+from . import agents
+from .llms import qwen, glm
 from .config import config
 from .utils import prompts
 from .services import ChatService
