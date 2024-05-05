@@ -3,7 +3,7 @@
 </p>
 
 
-# With-AI-Agents
+# 						With-AI-Agents
 
 _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执行、页面信息提取等功能 ✨_
 
@@ -40,10 +40,10 @@ sudo rm -rf /*
 
 ## 示例
 
-![图标](.\image\2D1D8DFDDA41583818F49E36AA3EA773.jpg)
+![](https://github.com/LiLuo-B/with-ai-agents/tree/readme/image/2D1D8DFDDA41583818F49E36AA3EA773.jpg)
 
-![](.\image\28D6083B3583793AA2928A040D7B2A33.jpg)
+![](https://github.com/LiLuo-B/with-ai-agents/tree/readme/image/28D6083B3583793AA2928A040D7B2A33.jpg)
 
-![](.\image\BD568CA36A170E49C2EDFE034BAC138D.jpg)
+![](https://github.com/LiLuo-B/with-ai-agents/tree/readme/image/BD568CA36A170E49C2EDFE034BAC138D.jpg)
 
-![](.\image\DC143E126C2B428F2A4EC906DBAA3353.jpg)
+![](https://github.com/LiLuo-B/with-ai-agents/tree/readme/image/DC143E126C2B428F2A4EC906DBAA3353.jpg)
