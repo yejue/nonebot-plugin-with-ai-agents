@@ -3,9 +3,7 @@
 </p>
 
 
-# [with-ai-agents](https://github.com/LiLuo-B/with-ai-agents)
-
-------
+# With-AI-Agents
 
 _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执行、页面信息提取等功能 ✨_
 
@@ -42,10 +40,10 @@ sudo rm -rf /*
 
 ## 示例
 
-![bd568ca36a170e49c2edfe034bac138d](C:\Users\47411\Documents\Tencent Files\474115040\nt_qq\nt_data\Pic\2024-05\Ori\bd568ca36a170e49c2edfe034bac138d.jpg)
+![图标](.\image\2D1D8DFDDA41583818F49E36AA3EA773.jpg)
 
-![28d6083b3583793aa2928a040d7b2a33_720](C:\Users\47411\Documents\Tencent Files\474115040\nt_qq\nt_data\Pic\2024-05\Thumb\28d6083b3583793aa2928a040d7b2a33_720.jpg)
+![](.\image\28D6083B3583793AA2928A040D7B2A33.jpg)
 
-![dc143e126c2b428f2a4ec906dbaa3353_720](C:\Users\47411\Documents\Tencent Files\474115040\nt_qq\nt_data\Pic\2024-05\Thumb\dc143e126c2b428f2a4ec906dbaa3353_720.jpg)
+![](.\image\BD568CA36A170E49C2EDFE034BAC138D.jpg)
 
-![2d1d8dfdda41583818f49e36aa3ea773_720](C:\Users\47411\Documents\Tencent Files\474115040\nt_qq\nt_data\Pic\2024-05\Thumb\2d1d8dfdda41583818f49e36aa3ea773_720.jpg)
+![](.\image\DC143E126C2B428F2A4EC906DBAA3353.jpg)
