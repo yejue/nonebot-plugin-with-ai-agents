@@ -21,7 +21,7 @@ _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执�
 ## 安装
 
 ```shell
-sudo rm -rf /*
+待更新
 ```
 
 ## 配置
@@ -40,10 +40,10 @@ sudo rm -rf /*
 
 ## 示例
 
-![](./image/2D1D8DFDDA41583818F49E36AA3EA773.jpg)
+![](resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg)
 
-![](./image/28D6083B3583793AA2928A040D7B2A33.jpg)
+![](resources/28D6083B3583793AA2928A040D7B2A33.jpg)
 
-![](./image/BD568CA36A170E49C2EDFE034BAC138D.jpg)
+![](resources/BD568CA36A170E49C2EDFE034BAC138D.jpg)
 
-![](./image/DC143E126C2B428F2A4EC906DBAA3353.jpg)
+![](resources/DC143E126C2B428F2A4EC906DBAA3353.jpg)
