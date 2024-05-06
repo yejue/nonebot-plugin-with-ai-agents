@@ -9,13 +9,13 @@ from .base import BaseLLMModel
 
 class OpenAIModel(BaseLLMModel):
 
-    def __init__(self, api_key):
+    def __init__(self, api_key: str, model: str = "gpt-3.5-turbo-0125"):
         self.api_key = api_key
+        self.model = model
 
-    @staticmethod
-    def get_body_template(temperature: float):
+    def get_body_template(self, temperature: float):
         body = {
-            "model": "gpt-3.5-turbo-0125",
+            "model": self.model,
             "temperature": temperature,
             "messages": []
         }

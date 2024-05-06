@@ -10,8 +10,9 @@ from .base import BaseLLMModel
 class DashscopeModel(BaseLLMModel):
     """灵织模型服务"""
 
-    def __init__(self, api_key):
+    def __init__(self, api_key: str, model: str = "qwen-turbo"):
         self.api_key = api_key
+        self.model = model
 
     def get_headers(self):
         headers = {
@@ -20,10 +21,9 @@ class DashscopeModel(BaseLLMModel):
         }
         return headers
 
-    @staticmethod
-    def get_body_template(temperature: float):
+    def get_body_template(self, temperature: float):
         body = {
-            "model": "qwen-turbo",
+            "model": self.model,
             "temperature": temperature,
             "input": {"messages": []}
         }
@@ -57,7 +57,7 @@ class DashscopeModel(BaseLLMModel):
 
         async with httpx.AsyncClient() as client:
             try:
-                r = await client.post(url, headers=headers, json=body)
+                r = await client.post(url, headers=headers, json=body, timeout=10)
                 ans = r.json()["output"]["text"]
             except httpx.ReadTimeout as e:
                 print(f"访问大模型超时, {e}")

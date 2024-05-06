@@ -2,6 +2,7 @@ class BaseLLMModel:
     """LLM 基类"""
 
     api_key: str = None
+    model: str = None
 
     def get_headers(self):
         headers = {

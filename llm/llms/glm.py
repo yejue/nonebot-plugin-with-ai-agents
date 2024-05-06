@@ -9,13 +9,13 @@ from .base import BaseLLMModel
 
 class GLMModel(BaseLLMModel):
 
-    def __init__(self, api_key):
+    def __init__(self, api_key: str, model: str ="glm-3-turbo"):
         self.api_key = api_key
+        self.model = model
 
-    @staticmethod
-    def get_body_template(temperature: float):
+    def get_body_template(self, temperature: float):
         body = {
-            "model": "glm-3-turbo",
+            "model": self.model,
             "temperature": temperature,
             "messages": []
         }
