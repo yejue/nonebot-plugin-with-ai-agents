@@ -31,8 +31,9 @@ _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执�
 |      配置项       | 必填 |  默认值  |                             说明                             |
 | :---------------: | :--: | :------: | :----------------------------------------------------------: |
 |   AI_AGENT_KEY    |  是  | 空字符串 |                         你的API Key                          |
-| AI_AGENT_PLATFORM |  是  | 空字符串 |                     你的AI模型平台，支持                     |
+| AI_AGENT_PLATFORM |  是  | 空字符串 | 你的AI模型平台，支持ChatGPT 系列，ChatGLM系列，Llama系列，百川，通义千问 |
 | AI_AGENT_PLATFORM |  否  | 空字符串 | 搜索引擎的Key，不填使用bing搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
+|  AI_AGENT_MODEL   |  否  | 空字符串 |             你的AI模型平台，默认模型根据平台来定             |
 
 ## 使用
 
@@ -40,10 +41,22 @@ _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执�
 
 ## 示例
 
+### 联网实时查询
+
 ![](resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg)
+
+### 天气查询
 
 ![](resources/28D6083B3583793AA2928A040D7B2A33.jpg)
 
+### AI聊天
+
 ![](resources/BD568CA36A170E49C2EDFE034BAC138D.jpg)
 
+### 页面提取
+
 ![](resources/DC143E126C2B428F2A4EC906DBAA3353.jpg)
+
+### 命令执行
+
+![](./resources/6F215C3D9794BF31372FBF8FFD89A049.png)
