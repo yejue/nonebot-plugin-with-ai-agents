@@ -10,7 +10,7 @@ from .services import ChatService
 from .llms import DashscopeModel, GLMModel, OpenAIModel
 
 
-def get_llm_model(platform: str = "dashscope", api_key: str = None):
+def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str = None):
     """获取大模型的询问工具"""
     llm = None
 
@@ -20,6 +20,10 @@ def get_llm_model(platform: str = "dashscope", api_key: str = None):
         llm = GLMModel(api_key=api_key)
     elif platform == "openai":
         llm = OpenAIModel(api_key=api_key)
+
+    if model:
+        llm.model = model
+
     return llm
 
 
@@ -27,7 +31,7 @@ async def ask_central_brain(raw_question: str):
     """向中心智脑提问"""
 
     # 选择智脑使用的大模型
-    llm = get_llm_model(config.AI_AGENT_PLATFORM, config.AI_AGENT_KEY)
+    llm = get_llm_model(config.AI_AGENT_PLATFORM, config.AI_AGENT_KEY, config.AI_AGENT_MODEL)
 
     # 获取聊天历史
     chat_history_list = ChatService.get_history_list()
