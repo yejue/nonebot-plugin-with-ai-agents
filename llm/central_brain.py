@@ -51,7 +51,7 @@ async def ask_central_brain(raw_question: str):
         elif int(num) == 3:  # 某地天气
             pass
         elif int(num) == 4:  # 执行指令
-            pass
+            agent_data += await agents.type4.get_command_result(llm=llm, question=raw_question)
         elif int(num) == 5:  # who are you
             agent_data += agents.type5.get_who_you_are() + "\n"
         elif int(num) == 6:  # 功能列表

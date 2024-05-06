@@ -87,3 +87,21 @@ def get_assemble_prompt(question, agent_data: str, db_result: str = ""):
     '''
 
     return prompt
+
+
+def get_type4_prompt(question):
+    prompt = f'''
+    请从我的问题中提取出要执行的 ubuntu 命令。
+    我的要求是:
+    1. 如果有多个命令，只需要提取出第一个
+    2. 如果没有命令，你可以回答""
+    3. 下面是个例子：
+        用户问题是: 运行 cd /root , df -h
+        你要回答: cd /root
+    
+    我的问题是: 
+    """
+    {question}
+    """
+    '''
+    return prompt

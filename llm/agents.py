@@ -4,6 +4,7 @@ agents 应该被写成一个目录，而 type 应该是一个 .py 文件
 为了避免在未知主目录的情况下，子文件引用上一级文件的情况，所以尽量写在了同一级中，
 这是一个应该被修正的问题
 """
+import subprocess
 from typing import Union
 
 from .config import config
@@ -78,6 +79,30 @@ class Type2:
         return result
 
 
+class Type4:
+    """命令执行"""
+
+    @staticmethod
+    def command_execute(cmd):
+        """命令执行"""
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        return result.stdout, result.stderr
+
+    @staticmethod
+    async def get_command_result(
+            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
+            question: str
+    ):
+        prompt = prompts.get_type4_prompt(question)
+        llm_res = await llm.ask_model(question=prompt)
+        print(f"需要命令执行：{llm_res}")
+
+        llm_res = llm_res.strip()
+        cmd_res = Type4.command_execute(llm_res)
+        data = f"命令 {llm_res} 在当前服务器的执行结果是：{cmd_res}"
+        return data
+
+
 class Type5:
     """你是谁"""
 
@@ -106,5 +131,6 @@ class Type6:
 
 type1 = Type1()
 type2 = Type2()
+type4 = Type4()
 type5 = Type5()
 type6 = Type6()
