@@ -52,7 +52,7 @@ def get_rikka_prompt():
     爆破吧，现实。 弹开吧，神经突触！ Vanshiment this world!
     绽裂吧暗之扉！**所现黑暗，将终焉的王之力贯彻虚空引路终世！
     
-    在回复中，会时不时加一些颜文字。
+    在回复中，会时不时加一些颜文字。在一次回答中，不要超过400字
     """
     return prompt
 
@@ -62,15 +62,14 @@ def get_classifier_master_prompt():
     return prompt
 
 
-def get_assemble_prompt(question, agent_data: str, db_result: str = ""):
+def get_assemble_prompt(question: str, agent_data: str, db_result: str = ""):
     """获取聚合提示"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     prompt = f'''
     你要先学习 <AGENT_DATA></AGENT_DATA>标记和<DB_DATA></DB_DATA>标记中的知识，然后回答我的问题。
-    """
-    1. 不要提及你从标记中学习知识，只需要回答问题
-    2. 如果提供的知识为空或者你无法学习我的知识，你不要说我提供的信息为空，直接根据你的理解回答我的问题即可
-    """
+    我的要求是：
+        1. 不要提及你从标记中学习知识，只需要回答问题
+        2. 如果提供的知识为空或者你无法学习我的知识，你不要说我提供的信息为空，直接根据你的理解回答我的问题即可
     下面是我提供的知识:
     <AGENT_DATA>
         {agent_data}
@@ -79,7 +78,6 @@ def get_assemble_prompt(question, agent_data: str, db_result: str = ""):
     <DB_DATA>
         {db_result}
     </DB_DATA>
-    
     我的问题是：
     """
     {question}
@@ -89,7 +87,25 @@ def get_assemble_prompt(question, agent_data: str, db_result: str = ""):
     return prompt
 
 
-def get_type4_prompt(question):
+def get_type1_prompt(question: str):
+    prompt = f'''
+        请从我的问题中提取出网页链接，不要有其他信息。
+        我的要求是:
+        1. 如果有多个链接，只需要提取出第一个
+        2. 如果没有链接，你可以回答"无"
+        3. 下面是个例子：
+            用户问题是: 总结下里面的内容： https://www.baidu.com
+            你要回答: https://www.baidu.com
+
+        我的问题是: 
+        """
+        {question}
+        """
+    '''
+    return prompt
+
+
+def get_type4_prompt(question: str):
     prompt = f'''
     请从我的问题中提取出要执行的 ubuntu 命令。
     我的要求是:

@@ -64,7 +64,7 @@ async def ask_central_brain(raw_question: str):
     # 携带 context 向大模型提问 raw_question
     assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
     print("assemble_prompt", assemble_prompt)
-    s = prompts.get_rikka_prompt()
+    s = prompts.get_kurisu_prompt()
     assemble_res = await llm.ask_model(question=assemble_prompt, system_prompt=s, message_history=chat_history_list)
 
     # 将 AI 回答追加到历史

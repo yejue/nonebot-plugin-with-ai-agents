@@ -57,7 +57,7 @@ class DashscopeModel(BaseLLMModel):
 
         async with httpx.AsyncClient() as client:
             try:
-                r = await client.post(url, headers=headers, json=body, timeout=10)
+                r = await client.post(url, headers=headers, json=body, timeout=20)
                 ans = r.json()["output"]["text"]
             except httpx.ReadTimeout as e:
                 print(f"访问大模型超时, {e}")

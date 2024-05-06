@@ -4,6 +4,7 @@ agents 应该被写成一个目录，而 type 应该是一个 .py 文件
 为了避免在未知主目录的情况下，子文件引用上一级文件的情况，所以尽量写在了同一级中，
 这是一个应该被修正的问题
 """
+import re
 import subprocess
 from typing import Union
 
@@ -16,31 +17,37 @@ class Type1:
     """提取页面内容"""
 
     @staticmethod
+    def extract_url_without_llm(question: str):
+        """不使用 LLM 提取 URL 链接"""
+        # 正则匹配 http 或 https 开头的 url
+        url_pattern = r'https?://[-\w.]+(?:[-\w/]|\.(?!\.))+'
+        # 匹配第一个 URL
+        match = re.search(url_pattern, question)
+        return match.group(0) if match else None
+
+    @staticmethod
+    async def extreact_url_with_llm(
+            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
+            question: str
+    ):
+        """大模型提取 URL"""
+        prompt = prompts.get_type1_prompt(question=question)
+        url = await llm.ask_model(question=prompt)
+        url = url.strip()
+        return url
+
+    @staticmethod
     async def summarize_weblink_content(
             llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
             question: str
     ):
-        prompt = f'''
-            请从我的问题中提取出网页链接，不要有其他信息。
-            我的要求是:
-            1. 如果有多个链接，只需要提取出第一个
-            2. 如果没有链接，你可以回答"无"
-            3. 下面是个例子：
-                用户问题是: 总结下里面的内容： https://www.baidu.com
-                你要回答: https://www.baidu.com
-            
-            我的问题是: 
-            """
-            {question}
-            """
-        '''
-        url = await llm.ask_model(question=prompt)
-        url = url.strip()
+        # 从问题中提取 URL
+        url = Type1.extract_url_without_llm(question=question)
         print(f"type1 model res：{url}")
 
+        # 提取页面内容
         url_content = await retrievers.get_url_content(url)
-        url_content = url_content[:400]  # 最大 400 个字符
-        print(f"提取页面内容：{url_content}")
+        url_content = url_content[:3000]
         result = f"\"{url}\" 的大致内容是：{url_content}"
         return result
 

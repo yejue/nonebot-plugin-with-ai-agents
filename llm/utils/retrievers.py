@@ -1,5 +1,6 @@
-import json
 import re
+import traceback
+import json
 import httpx
 
 from urllib.parse import quote
@@ -43,7 +44,6 @@ async def search_tavily(query: str, api_key: str = None, max_results=5):
         "include_domains": [],
         "exclude_domains": []
     }
-    print(data)
     async with httpx.AsyncClient() as client:
         try:
             r = await client.post(url, headers=headers, json=data)
@@ -63,5 +63,6 @@ async def get_url_content(url: str):
             pure_text = get_page_pure_text(r.text)
         except Exception as e:
             print(e)
+            print(traceback.format_exc())
             return "内容提取失败"
         return pure_text

@@ -49,7 +49,7 @@ class GLMModel(BaseLLMModel):
 
         async with httpx.AsyncClient() as client:
             try:
-                r = await client.post(url, headers=headers, json=body)
+                r = await client.post(url, headers=headers, json=body, timeout=20)
                 ans = r.json()["choices"][0]["message"]["content"]
             except httpx.ReadTimeout as e:
                 print(f"访问大模型超时, {e}")
