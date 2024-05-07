@@ -49,6 +49,10 @@ async def search_tavily(query: str, api_key: str = None, max_results=5):
             r = await client.post(url, headers=headers, json=data)
             print(r.text)
             results = r.json()["results"]
+
+            # 压缩内容，只提取 title 和 content
+            results = [f"《{item['title']}》:{item['content']}" for item in results]
+
             return json.dumps(results, ensure_ascii=False)
         except Exception as e:
             print(e)
