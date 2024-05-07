@@ -5,7 +5,7 @@
 
 <h1 align="center">With-AI-Agents</h1>
 
-_✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执行、页面信息提取等功能 ✨_
+_✨ NoneBot AI 助理插件，有页面内容学习、页面内容提取、联网实时查询回答、天气查询、命令执行等功能 ✨_
 
 <p align="center">
   <a href="https://raw.githubusercontent.com/cscs181/QQ-Github-Bot/master/LICENSE">
@@ -40,6 +40,8 @@ AI Agents 功能包括不限于以下功能：
 3. 本 plugin 中可以配置接入并不限于这些大模型，ChatGLM 系列、通义千问系列、ChatGPT 系列、以及魔塔社区 Dashscope 提供的所有模型（百川、Llama3等）。
 插件作者开发时使用的是 **dashscope** 的 **qwen-turbo** 模型，在调整了 **temperature** 之后效果还可以。
 预估效果应该是 ChatGPT 系列 > ChatGLM ≈ 通义千问 >> 百川、Llama3
+4. 本 plugin 的优先级为 999，因为用的是全部文本匹配，会响应任意文本，所以应尽量在别的插件之后
+5. 推荐 COMMAND_START 设置为空
 
 
 ## 配置项
@@ -59,23 +61,31 @@ AI Agents 功能包括不限于以下功能：
 
 ## 示例
 
-### 联网实时查询
-
-![](resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg)
-
-![](resources/28D6083B3583793AA2928A040D7B2A33.jpg)
-
-## 页面内容学习
-![](resources/IMG_5055.PNG)
-
-### AI聊天
-
-![](resources/BD568CA36A170E49C2EDFE034BAC138D.jpg)
+### 页面内容学习
+<!--![](resources/IMG_5055.PNG)-->
+<img src="resources/IMG_5055.PNG" width="400"></img>
 
 ### 页面提取
 
-![](resources/DC143E126C2B428F2A4EC906DBAA3353.jpg)
+<!--![](resources/DC143E126C2B428F2A4EC906DBAA3353.jpg)-->
+<img src="resources/DC143E126C2B428F2A4EC906DBAA3353.jpg" width="400"></img>
+
+### 联网实时查询
+
+<!--![](resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg)-->
+<img src="resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg" width="400"></img>
+
+<!--![](resources/28D6083B3583793AA2928A040D7B2A33.jpg)-->
+<img src="resources/28D6083B3583793AA2928A040D7B2A33.jpg" width="400"></img>
+
+
+
+### AI聊天
+
+<!--![](resources/BD568CA36A170E49C2EDFE034BAC138D.jpg)-->
+<img src="resources/BD568CA36A170E49C2EDFE034BAC138D.jpg" width="400"></img>
 
 ### 命令执行
 
-![](./resources/6F215C3D9794BF31372FBF8FFD89A049.png)
+<!--![](./resources/6F215C3D9794BF31372FBF8FFD89A049.png)-->
+<img src="resources/6F215C3D9794BF31372FBF8FFD89A049.png" width="400"></img>
