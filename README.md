@@ -18,13 +18,31 @@ _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执�
 </p>
 
 
-## 安装
+## 快速安装
 
 ```shell
 待更新
 ```
 
-## 配置
+## 功能描述
+AI Agents 功能包括不限于以下功能：
+1. 联网搜索：即当 AI 认为当前应该使用网络搜索时，进行搜索后回答
+2. 页面提取：在问题中自动提取 url，将 url 的内容提取学习后进行回答
+3. 天气预报：暂时是没有了，等下个版本更新
+4. 新闻内容：目前 AI 可以根据需要对某个事件来搜索到大概信息，例如：”了解下珠海暴雨“，再进行回答，之后会做成专门的新闻模块。
+5. 命令执行：AI 从接收到的信息语义中解析出要执行的指令，执行完成将结果转达。执行命令使用的是 subprocess 模块。
+注意：由于未做任何的权限控制，这个功能有非常高的风险。
+
+
+## 一些说明
+1. 本 plugin 采用 Agents 基本原理实现
+2. 本 plugin 中的联网能力基于百度、bing、或者 Tavily，推荐只使用百度。Tavily 确实提供了良好的聚合搜索，但是有可能会出现“50万”内容
+3. 本 plugin 中可以配置接入并不限于这些大模型，ChatGLM 系列、通义千问系列、ChatGPT 系列、以及魔塔社区 Dashscope 提供的所有模型（百川、Llama3等）。
+插件作者开发时使用的是 **dashscope** 的 **qwen-turbo** 模型，在调整了 **temperature** 之后效果还可以。
+预估效果应该是 ChatGPT 系列 > ChatGLM ≈ 通义千问 >> 百川、Llama3
+
+
+## 配置项
 
 在 nonebot2 项目的 `.env` | `.env.prod` | `.env.dev` 中添加下表中的配置项。
 
@@ -32,7 +50,7 @@ _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执�
 | :---------------: | :--: | :------: | :----------------------------------------------------------: |
 |   AI_AGENT_KEY    |  是  | 空字符串 |                         你的API Key                          |
 | AI_AGENT_PLATFORM |  是  | 空字符串 | 你的AI模型平台，支持ChatGPT 系列，ChatGLM系列，Llama系列，百川，通义千问 |
-| AI_AGENT_PLATFORM |  否  | 空字符串 | 搜索引擎的Key，不填使用bing搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
+| AI_AGENT_PLATFORM |  否  | 空字符串 | 搜索引擎的Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
 |  AI_AGENT_MODEL   |  否  | 空字符串 |             你的AI模型平台，默认模型根据平台来定             |
 
 ## 使用
@@ -45,9 +63,10 @@ _✨ NoneBot AI助理插件，有联网实时查询、天气查询、命令执�
 
 ![](resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg)
 
-### 天气查询
-
 ![](resources/28D6083B3583793AA2928A040D7B2A33.jpg)
+
+## 页面内容学习
+![](resources/IMG_5055.PNG)
 
 ### AI聊天
 

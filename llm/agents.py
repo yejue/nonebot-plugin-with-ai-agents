@@ -81,7 +81,7 @@ class Type2:
         if config.TAVILY_API_KEY:
             search_result = await retrievers.search_tavily(query=llm_res, api_key=config.TAVILY_API_KEY)
         else:
-            search_result = await retrievers.search_bing(query=llm_res)
+            search_result = await retrievers.search_baidu(query=llm_res)
         result = f"\"{llm_res}\" 在搜索引擎的搜索结果是：{search_result}"
         return result
 

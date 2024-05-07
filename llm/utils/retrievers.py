@@ -19,6 +19,40 @@ def get_page_pure_text(html_text: str):
     return pure_text
 
 
+def parse_baidu_search_result(html_text: str):
+    # 解析百度搜索第一页的内容
+    soup = BeautifulSoup(html_text, "html.parser")
+    soup_list = soup.select(".c-container:not([class*=' '])")
+
+    res_list = []
+
+    for item in soup_list:
+        s_data = re.findall(r"<!--s-data:(.*?)-->", str(item))
+        if not s_data:
+            continue
+        s_data = json.loads(s_data[0])
+
+        item_dict = {
+            "title": s_data["title"],
+            "content": s_data["contentText"],
+            "url": s_data["tplData"]["classicInfo"]["url"]
+        }
+        res_list.append(item_dict)
+    return res_list
+
+
+async def search_baidu(query: str, max_results: int = 5):
+    """百度搜索"""
+    url = f"https://www.baidu.com/s?wd={query}"
+    async with httpx.AsyncClient() as client:
+        r = await client.get(url, headers=headers)
+        if r.status_code > 399:
+            return "内容获取失败"
+        results = parse_baidu_search_result(r.text)[:max_results]
+        raw_content = "\n".join([f"《{item['title']}》:{item['content']}" for item in results])
+        return raw_content
+
+
 async def search_bing(query: str):
     """必应搜索"""
     query = quote(query)
