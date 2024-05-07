@@ -49,7 +49,7 @@ class OpenAIModel(BaseLLMModel):
         print("openai body: ", body)
 
         async with httpx.AsyncClient() as client:
-            r = await client.post(url, headers=headers, json=body, timeout=20)
+            r = await client.post(url, headers=headers, json=body, timeout=self.timeout)
 
             try:
                 ans = r.json()["choices"][0]["message"]["content"]

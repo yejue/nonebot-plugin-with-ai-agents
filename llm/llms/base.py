@@ -3,6 +3,7 @@ class BaseLLMModel:
 
     api_key: str = None
     model: str = None
+    timeout: int = 30  # 大模型访问过期时间，秒
 
     def get_headers(self):
         headers = {
