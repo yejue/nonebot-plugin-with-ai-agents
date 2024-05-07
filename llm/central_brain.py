@@ -32,6 +32,8 @@ async def ask_central_brain(raw_question: str):
 
     # 选择智脑使用的大模型
     llm = get_llm_model(config.AI_AGENT_PLATFORM, config.AI_AGENT_KEY, config.AI_AGENT_MODEL)
+    if not llm:
+        return "大模型获取失败，请检查配置。配置文档参考：https://github.com/yejue/nonebot-plugin-with-ai-agents"
 
     # 获取聊天历史
     chat_history_list = ChatService.get_history_list()
