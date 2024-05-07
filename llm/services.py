@@ -1,4 +1,4 @@
-from awesomebot.plugins.with_ai_agents.llm.mem_stores import chat_history
+from .mem_stores import chat_history
 
 
 class ChatService:
