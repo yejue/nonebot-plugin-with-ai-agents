@@ -20,6 +20,13 @@ class ChatService:
             chat_history = chat_history[-(max_length//2):]
 
     @staticmethod
+    def clear_chat_history():
+        global chat_history
+        length = len(chat_history)
+        chat_history = []
+        return length
+
+    @staticmethod
     def get_strategically_chat_history(new_prompt: str, max_length: int):
         """策略获取聊天历史
          - 从最大长度消耗掉 len(new_prompt) 个长度
