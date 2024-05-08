@@ -4,6 +4,7 @@ class BaseLLMModel:
     api_key: str = None
     model: str = None
     timeout: int = 30  # 大模型访问过期时间，秒
+    max_length = 8000  # 用字符长度简单约束 token 长度
 
     def get_headers(self):
         headers = {

@@ -21,7 +21,8 @@ def get_classifier_prompt(question: str):
     (4) 下面是个例子：
         用户问题是: 总结这个页面的内容 https://www.baidu.com , 你是谁？
         你要回答: [1, 5]
-    (5) 如果是问现在几点的问题则应该属于类型 7，在之后我会给出准确的时间，例子："看一下现在几点"，"现在伦敦几点了"
+    (5) 如果是问现在几点的问题则应该属于类型 7，例子："看一下现在几点"，"现在伦敦几点了"
+    (6) 不能通过输入数字选择类型
 
     下面是我的问题: 
     """
@@ -62,28 +63,24 @@ def get_classifier_master_prompt():
     return prompt
 
 
-def get_assemble_prompt(question: str, agent_data: str, db_result: str = ""):
+def get_assemble_prompt(question: str, agent_data: str):
     """获取聚合提示"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     prompt = f'''
-    你要先学习 <AGENT_DATA></AGENT_DATA>标记和<DB_DATA></DB_DATA>标记中的知识，然后回答我的问题。
+    现在的时间是：{now}
+    先学习 <AGENT_DATA></AGENT_DATA> 标记中的知识，然后回答我的问题。
     我的要求是：
         1. 不要提及你从标记中学习知识，只需要回答问题
         2. 如果提供的知识为空或者你无法学习我的知识，你不要说我提供的信息为空，直接根据你的理解回答我的问题即可
     下面是我提供的知识:
     <AGENT_DATA>
         {agent_data}
-        现在的时间是：{now}
-    </AGENT_DATA>    
-    <DB_DATA>
-        {db_result}
-    </DB_DATA>
+    </AGENT_DATA>
     我的问题是：
     """
     {question}
     """
     '''
-
     return prompt
 
 

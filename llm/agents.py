@@ -44,6 +44,8 @@ class Type1:
         # 从问题中提取 URL
         url = Type1.extract_url_without_llm(question=question)
         print(f"type1 model res：{url}")
+        if not url:
+            return f"\"{url}\" 的大致内容是：内容提取失败"
 
         # 提取页面内容
         url_content = await retrievers.get_url_content(url)

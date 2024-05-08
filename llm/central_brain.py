@@ -37,9 +37,6 @@ async def ask_central_brain(raw_question: str):
     if not llm:
         return "WITH_AI_AGENTS 大模型获取失败，请检查配置。配置文档参考：https://github.com/yejue/nonebot-plugin-with-ai-agents"
 
-    # 获取聊天历史
-    chat_history_list = ChatService.get_history_list()
-
     # 将用户提问发送到大模型分类器，获取分类列表
     prompt = prompts.get_classifier_prompt(question=raw_question)
     s = prompts.get_classifier_master_prompt()
@@ -68,11 +65,15 @@ async def ask_central_brain(raw_question: str):
     # 携带 context 向大模型提问 raw_question
     assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
     print("assemble_prompt", assemble_prompt)
+
+    # Chat History 策略获取
+    chat_history_list = ChatService.get_strategically_chat_history(assemble_prompt, max_length=llm.max_length)
+
     s = prompts.get_kurisu_prompt()
     assemble_res = await llm.ask_model(question=assemble_prompt, system_prompt=s, message_history=chat_history_list)
 
     # 将 AI 回答追加到历史
-    ChatService.add_message_to_history(text=assemble_prompt, role="user")
+    ChatService.add_message_to_history(text=raw_question, role="user")
     ChatService.add_message_to_history(text=assemble_res, role="assistant")
 
     return assemble_res
