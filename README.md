@@ -20,9 +20,24 @@ _✨ NoneBot AI 助理插件，有页面内容学习、页面内容提取、联�
 
 ## 快速安装
 
+### nb-cli
+
 ```shell
-待更新
+nb plugin install nonebot-plugin-with-ai-agents
 ```
+### pip
+
+```shell
+pip install nonebot-plugin-with-ai-agents
+```
+
+### git
+
+```shell
+cd /your-nonebot-project-home/plugins/
+git clone https://github.com/yejue/nonebot-plugin-with-ai-agents.git
+```
+
 
 ## 功能描述
 AI Agents 功能包括不限于以下功能：
