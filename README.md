@@ -61,6 +61,7 @@ AI Agents 功能包括不限于以下功能：
  - [ ] ！！命令执行安全问题，方案：对特定 ID 可用，并提供可关停配置。
  - [ ] 新闻查询增强，方案：从各类新闻网获取聚合数据。
  - [ ] Prompt 调整，方案：优化和精简 Prompt。
+ - [ ] AI 聊天历史对群聊和私聊做区分（考虑中，如果加的话可能会使用数据库）。
  - [ ] ~~天气预报，没有很大兴趣。
  - [ ] ~~知识库，采用 Embeddings + PGVector 完成数据向量化和存储搜索。对于一个插件来说，体量可能过大。
 
@@ -82,11 +83,11 @@ AI Agents 功能包括不限于以下功能：
 
 openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国内大模型来说，GLM 系列算是各方面都比较好的，这个模型在申请之后可以免费使用一个月。本插件在开发时使用的是 **qwen-turbo** ，这个是阿里云的通义千问系列大模型，在调整了 temperature 之后表现还不错，申请之后可以在一定额度内使用半年。
 
-| 平台（AI_AGENT_PLATFORM） | 模型（AI_AGENT_MODEL）                                       | 相关文档                                                     |
-| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| openai                    | gpt-3.5-turbo-0125（推荐，毕竟便宜一点）、gpt-3.5-turbo、gpt-3.5-turbo-16k、gpt-4-turbo、gpt-4-turbo-2024-04-09、gpt-4-32k | [openai](https://platform.openai.com/docs/models)            |
-| dashscope                 | qwen-turbo（推荐，开发时使用）、qwen-plus、qwen-max-longcontext、llama3-8b-instruct（不尽人意）、llama3-70b-instruct（不尽人意）、baichuan-7b-v1（不尽人意） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
-| glm                       | glm-3-turbo（推荐）、glm-4                                   | [glm](https://open.bigmodel.cn/dev/api#language)             |
+| 平台（platform） | 模型（model_name）                                                                                                              | 相关文档                                                     |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------ |
+| openai       | gpt-3.5-turbo-0125（推荐，毕竟便宜一点）、gpt-3.5-turbo、gpt-3.5-turbo-16k、gpt-4-turbo、gpt-4-turbo-2024-04-09、gpt-4-32k                  | [openai](https://platform.openai.com/docs/models)            |
+| dashscope    | qwen-turbo（推荐，开发时使用）、qwen-plus、qwen-max-longcontext、llama3-8b-instruct（不尽人意）、llama3-70b-instruct（不尽人意）、baichuan-7b-v1（不尽人意） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
+| glm          | glm-3-turbo（推荐）、glm-4                                                                                                       | [glm](https://open.bigmodel.cn/dev/api#language)             |
 
 
 
@@ -96,10 +97,10 @@ openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国�
 
 |      配置项       | 必填 |  默认值  |                             说明                             |
 | :---------------: | :--: | :------: | :----------------------------------------------------------: |
-|   AI_AGENT_KEY    |  是  | 空字符串 |                         你的API Key                          |
-| AI_AGENT_PLATFORM |  是  | 空字符串 | 你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问 |
-| AI_AGENT_PLATFORM |  否  | 空字符串 | 搜索引擎的Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
-|  AI_AGENT_MODEL   |  否  | 空字符串 |        你的 AI 模型字符串，不填将根据平台使用默认模型        |
+|   WITH_AI_AGENTS__API_KEY    |  是  | 空字符串 |                         你的大模型 API Key                          |
+| WITH_AI_AGENTS_PLATFORM |  是  | 空字符串 | 你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问 |
+| WITH_AI_AGENTS__TAVILY_API_KEY |  否  | 空字符串 | （打算弃用）搜索引擎的 Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
+|  WITH_AI_AGENTS__MODEL_NAME   |  否  | 空字符串 |        你的 AI 模型名称，不填将根据平台使用默认模型        |
 
 ## 使用
 
