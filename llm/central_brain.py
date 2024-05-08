@@ -42,30 +42,40 @@ async def ask_central_brain(raw_question: str):
     s = prompts.get_classifier_master_prompt()
     classifier_res = await llm.ask_model(question=prompt, system_prompt=s)
     print(f"raw_classifier_res: {classifier_res}")
-    classifier_res = json.loads(classifier_res)
+
+    try:
+        classifier_res = json.loads(classifier_res)
+    except Exception as e:
+        print(e)
+        return "WITH_AI_AGENTS 模型处理失败，试着换点更优秀的模型吧"
+
     print(f"智脑分类结果：{classifier_res}")
 
     # 遍历分类列表，向 agents 发送任务并获取 context
     agent_data = ""
 
-    for num in classifier_res:
-        if int(num) == 1:    # 提取页面内容
-            agent_data += await agents.type1.summarize_weblink_content(llm=llm, question=raw_question) + "\n"
-        elif int(num) == 2:  # 联网搜索能力
-            agent_data += await agents.type2.get_search_result(llm=llm, question=raw_question)
-        elif int(num) == 3:  # 某地天气
-            pass
-        elif int(num) == 4:  # 执行指令
-            # agent_data += await agents.type4.get_command_result(llm=llm, question=raw_question)
-            pass
-        elif int(num) == 5:  # who are you
-            agent_data += agents.type5.get_who_you_are() + "\n"
-        elif int(num) == 6:  # 功能列表
-            agent_data += agents.type6.get_ai_abilities() + "\n"
+    if len(classifier_res) == 1 and classifier_res[0] == 7:
+        assemble_prompt = raw_question
+        print("assemble_prompt", assemble_prompt)
+    else:
+        for num in classifier_res:
+            if int(num) == 1:    # 提取页面内容
+                agent_data += await agents.type1.summarize_weblink_content(llm=llm, question=raw_question) + "\n"
+            elif int(num) == 2:  # 联网搜索能力
+                agent_data += await agents.type2.get_search_result(llm=llm, question=raw_question)
+            elif int(num) == 3:  # 某地天气
+                pass
+            elif int(num) == 4:  # 执行指令
+                # agent_data += await agents.type4.get_command_result(llm=llm, question=raw_question)
+                pass
+            elif int(num) == 5:  # who are you
+                agent_data += agents.type5.get_who_you_are() + "\n"
+            elif int(num) == 6:  # 功能列表
+                agent_data += agents.type6.get_ai_abilities() + "\n"
 
-    # 携带 context 向大模型提问 raw_question
-    assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
-    print("assemble_prompt", assemble_prompt)
+        # 携带 context 向大模型提问 raw_question
+        assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
+        print("assemble_prompt", assemble_prompt)
 
     # Chat History 策略获取
     chat_history_list = ChatService.get_strategically_chat_history(assemble_prompt, max_length=llm.max_length)
