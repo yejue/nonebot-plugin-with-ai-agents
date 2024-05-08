@@ -39,24 +39,53 @@ git clone https://github.com/yejue/nonebot-plugin-with-ai-agents.git
 ```
 
 
+
 ## 功能描述
+
 AI Agents 功能包括不限于以下功能：
 1. 联网搜索：即当 AI 认为当前应该使用网络搜索时，进行搜索后回答
-2. 页面提取：在问题中自动提取 url，将 url 的内容提取学习后进行回答
+2. 页面提取：在问题中自动提取 URL，将 URL 的内容提取学习后进行回答
 3. 天气预报：暂时是没有了，等下个版本更新
 4. 新闻内容：目前 AI 可以根据需要对某个事件来搜索到大概信息，例如：”了解下珠海暴雨“，再进行回答，之后会做成专门的新闻模块。
 5. 命令执行：AI 从接收到的信息语义中解析出要执行的指令，执行完成将结果转达。执行命令使用的是 subprocess 模块。
-注意：由于未做任何的权限控制，这个功能有非常高的风险。
+  注意：由于未做任何的权限控制，这个功能有非常高的风险。
+
+
+
+## TODOs
+”！！“ 为近期要做的事情
+”~~“ 为可能会鸽的更新，慢慢来
+
+ - [ ] ！！命令执行安全问题，方案：对特定 ID 可用，并提供可关停配置。
+ - [ ] 新闻查询增强，方案：从各类新闻网获取聚合数据。
+ - [ ] Prompt 调整，方案：优化和精简 Prompt。
+ - [ ] ~~天气预报，没有很大兴趣。
+ - [ ] ~~知识库，方案：采用 Embeddings + PGVector 完成数据向量化和存储搜索。对于一个插件来说，体量可能过大。
+
 
 
 ## 一些说明
-1. 本 plugin 采用 Agents 基本原理实现
-2. 本 plugin 中的联网能力基于百度、bing、或者 Tavily，推荐只使用百度。Tavily 确实提供了良好的聚合搜索，但是有可能会出现“50万”内容
-3. 本 plugin 中可以配置接入并不限于这些大模型，ChatGLM 系列、通义千问系列、ChatGPT 系列、以及魔塔社区 Dashscope 提供的所有模型（百川、Llama3等）。
-插件作者开发时使用的是 **dashscope** 的 **qwen-turbo** 模型，在调整了 **temperature** 之后效果还可以。
-预估效果应该是 ChatGPT 系列 > ChatGLM ≈ 通义千问 >> 百川、Llama3
+
+1. 本 plugin 采用 Agents 基本原理实现。
+2. 本 plugin 中的联网能力基于百度、bing（暂时忽略不计）、或者 Tavily，推荐只使用百度。Tavily 确实提供了良好的聚合搜索，但是有可能会出现“50万”内容。
+3. 本 plugin 中可以配置接入并不限于这些大模型，ChatGLM 系列、通义千问系列、ChatGPT 系列、以及魔塔社区 Dashscope 提供的所有模型（百川、Llama3等）。插件开发时使用的是 **dashscope** 的 **qwen-turbo** 模型，在调整了 **temperature** 之后效果还可以。预估效果应该是 ChatGPT 系列 > ChatGLM ≈ 通义千问 >> 百川、Llama3。
 4. 本 plugin 的优先级为 999，因为用的是全部文本匹配，会响应任意文本，所以应尽量在别的插件之后
 5. 推荐 COMMAND_START 设置为空
+
+
+
+## 可用模型
+
+以下是本插件可以使用的平台和模型配置项，包含但不限于。
+
+openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国内大模型来说，GLM 系列算是各方面都比较好的，这个模型在申请之后可以免费使用一个月。本插件在开发时使用的是 **qwen-turbo** ，这个是阿里云的通义千问系列大模型，在调整了 temperature 之后表现还不错，申请之后可以在一定额度内使用半年。
+
+| 平台（AI_AGENT_PLATFORM） | 模型（AI_AGENT_MODEL）                                       | 相关文档                                                     |
+| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| openai                    | gpt-3.5-turbo-0125（推荐，毕竟便宜一点）、gpt-3.5-turbo、gpt-3.5-turbo-16k、gpt-4-turbo、gpt-4-turbo-2024-04-09、gpt-4-32k | [openai](https://platform.openai.com/docs/models)            |
+| dashscope                 | qwen-turbo（推荐，开发时使用）、qwen-plus、qwen-max-longcontext、llama3-8b-instruct（不尽人意）、llama3-70b-instruct（不尽人意）、baichuan-7b-v1（不尽人意） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
+| glm                       | glm-3-turbo（推荐）、glm-4                                   | [glm](https://open.bigmodel.cn/dev/api#language)             |
+
 
 
 ## 配置项
@@ -66,9 +95,9 @@ AI Agents 功能包括不限于以下功能：
 |      配置项       | 必填 |  默认值  |                             说明                             |
 | :---------------: | :--: | :------: | :----------------------------------------------------------: |
 |   AI_AGENT_KEY    |  是  | 空字符串 |                         你的API Key                          |
-| AI_AGENT_PLATFORM |  是  | 空字符串 | 你的AI模型平台，支持ChatGPT 系列，ChatGLM系列，Llama系列，百川，通义千问 |
+| AI_AGENT_PLATFORM |  是  | 空字符串 | 你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问 |
 | AI_AGENT_PLATFORM |  否  | 空字符串 | 搜索引擎的Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
-|  AI_AGENT_MODEL   |  否  | 空字符串 |             你的AI模型平台，默认模型根据平台来定             |
+|  AI_AGENT_MODEL   |  否  | 空字符串 |        你的 AI 模型字符串，不填将根据平台使用默认模型        |
 
 ## 使用
 
@@ -77,30 +106,22 @@ AI Agents 功能包括不限于以下功能：
 ## 示例
 
 ### 页面内容学习
-<!--![](resources/IMG_5055.PNG)-->
 <img src="resources/IMG_5055.PNG" width="400"></img>
-
 ### 页面提取
-
-<!--![](resources/DC143E126C2B428F2A4EC906DBAA3353.jpg)-->
 <img src="resources/DC143E126C2B428F2A4EC906DBAA3353.jpg" width="400"></img>
 
 ### 联网实时查询
-
-<!--![](resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg)-->
 <img src="resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg" width="400"></img>
 
-<!--![](resources/28D6083B3583793AA2928A040D7B2A33.jpg)-->
+
 <img src="resources/28D6083B3583793AA2928A040D7B2A33.jpg" width="400"></img>
 
 
 
 ### AI聊天
 
-<!--![](resources/BD568CA36A170E49C2EDFE034BAC138D.jpg)-->
 <img src="resources/BD568CA36A170E49C2EDFE034BAC138D.jpg" width="400"></img>
 
 ### 命令执行
 
-<!--![](./resources/6F215C3D9794BF31372FBF8FFD89A049.png)-->
-<img src="resources/6F215C3D9794BF31372FBF8FFD89A049.png" width="400"></img>
+### <img src="resources/6F215C3D9794BF31372FBF8FFD89A049.png" width="400"></img>
