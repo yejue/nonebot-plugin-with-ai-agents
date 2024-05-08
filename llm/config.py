@@ -17,10 +17,17 @@ class Config(BaseModel):
     with_ai_agents: ScopedConfig
 
 
-plugin_config = get_plugin_config(Config).with_ai_agents
-config = plugin_config
+def get_config():
+    try:
+        plugin_config = get_plugin_config(Config).with_ai_agents
+        print("With_AI_Agents: api_key=", plugin_config.api_key)
+        print("With_AI_Agents: platform=", plugin_config.platform)
+        print("With_AI_Agents: model_name=", plugin_config.model_name)
+        print("With_AI_Agents：tavily_api_key=", plugin_config.tavily_api_key)
+        return plugin_config
+    except Exception as e:
+        print(f"WITH_AI_AGENTS 配置获取失败 {e}")
+        return None
 
-print("With_AI_Agents: api_key=", config.api_key)
-print("With_AI_Agents: platform=", config.platform)
-print("With_AI_Agents: model_name=", config.model_name)
-print("With_AI_Agents：tavily_api_key=", config.tavily_api_key)
+
+config = get_config()

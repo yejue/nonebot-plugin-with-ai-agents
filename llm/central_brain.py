@@ -29,11 +29,13 @@ def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str =
 
 async def ask_central_brain(raw_question: str):
     """向中心智脑提问"""
+    if not config:
+        return "WITH_AI_AGENTS 配置获取失败，请检查配置。配置文档参考：https://github.com/yejue/nonebot-plugin-with-ai-agents"
 
     # 选择智脑使用的大模型
     llm = get_llm_model(config.platform, config.api_key, config.model_name)
     if not llm:
-        return "大模型获取失败，请检查配置。配置文档参考：https://github.com/yejue/nonebot-plugin-with-ai-agents"
+        return "WITH_AI_AGENTS 大模型获取失败，请检查配置。配置文档参考：https://github.com/yejue/nonebot-plugin-with-ai-agents"
 
     # 获取聊天历史
     chat_history_list = ChatService.get_history_list()
