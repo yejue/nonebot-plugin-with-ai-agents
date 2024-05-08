@@ -1,20 +1,26 @@
-from pydantic import BaseModel
-from nonebot import get_driver
+from pydantic import BaseModel, Field
+from nonebot import get_plugin_config
 
-global_config = get_driver().config
+
+BaseModel.model_config["protected_namespaces"] = ()
+
+
+class ScopedConfig(BaseModel):
+    api_key: str = Field(None, doc="大模型 api_key")
+    platform: str = Field(None, doc="大模型访问平台")
+    model_name: str = Field(None, doc="选用的大模型名称")
+    tavily_api_key: str = Field(None, doc="Tavily 聚合搜索 api_key，但准备弃用")
 
 
 class Config(BaseModel):
     """AI Agents"""
-
-    AI_AGENT_KEY: str = getattr(global_config, "ai_agent_key", None)
-    AI_AGENT_PLATFORM: str = getattr(global_config, "ai_agent_platform", None)
-    TAVILY_API_KEY: str = getattr(global_config, "tavily_api_key", None)
-    AI_AGENT_MODEL: str = getattr(global_config, "ai_agent_model", None)
+    with_ai_agents: ScopedConfig
 
 
-config = Config()
-print("AI_AGENT_KEY=", config.AI_AGENT_KEY)
-print("AI_AGENT_PLATFORM=", config.AI_AGENT_PLATFORM)
-print("AI_AGENT_MODEL=", config.AI_AGENT_MODEL)
-print("TAVILY_API_KEY=", config.TAVILY_API_KEY)
+plugin_config = get_plugin_config(Config).with_ai_agents
+config = plugin_config
+
+print("With_AI_Agents: api_key=", config.api_key)
+print("With_AI_Agents: platform=", config.platform)
+print("With_AI_Agents: model_name=", config.model_name)
+print("With_AI_Agents：tavily_api_key=", config.tavily_api_key)

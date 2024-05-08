@@ -78,8 +78,8 @@ class Type2:
         print(f"需要联网搜索，llm_res={llm_res}")
 
         # 联网搜索
-        if config.TAVILY_API_KEY:
-            search_result = await retrievers.search_tavily(query=llm_res, api_key=config.TAVILY_API_KEY)
+        if config.tavily_api_key:
+            search_result = await retrievers.search_tavily(query=llm_res, api_key=config.tavily_api_key)
         else:
             search_result = await retrievers.search_baidu(query=llm_res)
         result = f"\"{llm_res}\" 在搜索引擎的搜索结果是：{search_result}"
