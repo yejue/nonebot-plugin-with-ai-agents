@@ -104,6 +104,24 @@ def get_type1_prompt(question: str):
     return prompt
 
 
+def get_type2_prompt(question: str):
+    prompt = f'''
+    请从我的问题中根据语义提取要搜索的内容关键词，不要有其他信息。
+    我的要求是：
+    1. 搜索的内容尽可能宽泛化
+    2. 下面是个例子：
+    """
+    用户问题是：有哪些学校开设了信用风险管理与法律防控专业
+    你要回答：信用风险管理与法律防控专业 学校
+    """
+    我的问题是：
+    """
+    {question}
+    """
+    '''
+    return prompt
+
+
 def get_type4_prompt(question: str):
     prompt = f'''
     请从我的问题中提取出要执行的 ubuntu 命令。

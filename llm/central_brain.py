@@ -81,7 +81,12 @@ async def ask_central_brain(raw_question: str):
     chat_history_list = ChatService.get_strategically_chat_history(assemble_prompt, max_length=llm.max_length)
 
     s = prompts.get_kurisu_prompt()
-    assemble_res = await llm.ask_model(question=assemble_prompt, system_prompt=s, message_history=chat_history_list)
+    assemble_res = await llm.ask_model(
+        question=assemble_prompt,
+        system_prompt=s,
+        message_history=chat_history_list,
+        temperature=0.3
+    )
 
     # 将 AI 回答追加到历史
     ChatService.add_message_to_history(text=raw_question, role="user")

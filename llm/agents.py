@@ -20,7 +20,8 @@ class Type1:
     def extract_url_without_llm(question: str):
         """不使用 LLM 提取 URL 链接"""
         # 正则匹配 http 或 https 开头的 url
-        url_pattern = r'https?://[-\w.]+(?:[-\w/]|\.(?!\.))+'
+        # url_pattern = r'https?://[-\w.]+(?:[-\w/]|\.(?!\.))+'
+        url_pattern = r'https?://[-\w.]+(?:[-\w/]|[-\w/?.&=%+])+'
         # 匹配第一个 URL
         match = re.search(url_pattern, question)
         return match.group(0) if match else None
@@ -62,20 +63,7 @@ class Type2:
             llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
             question: str
     ):
-        prompt = f'''
-        请从我的问题中提出要搜索的内容，不要有其他信息。
-        我的要求是：
-        1. 回答只有一句话，20字以内
-        2. 搜索的内容应该是你所不清楚的
-        3. 下面是个例子：
-            用户问题是：看一下最近有什么新闻呢
-            你要回答：最近有什么新闻
-            
-        我的问题是：
-        """
-        {question}
-        """
-        '''
+        prompt = prompts.get_type2_prompt(question=question)
         llm_res = await llm.ask_model(question=prompt)
         print(f"需要联网搜索，llm_res={llm_res}")
 

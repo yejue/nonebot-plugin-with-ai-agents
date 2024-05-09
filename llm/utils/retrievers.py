@@ -20,7 +20,7 @@ def get_page_pure_text(html_text: str):
 
 
 def parse_baidu_search_result(html_text: str):
-    # 解析百度搜索第一页的内容
+    # 解析百度搜索页内容
     soup = BeautifulSoup(html_text, "html.parser")
     soup_list = soup.select(".c-container:not([class*=' '])")
 
@@ -30,8 +30,11 @@ def parse_baidu_search_result(html_text: str):
         s_data = re.findall(r"<!--s-data:(.*?)-->", str(item))
         if not s_data:
             continue
-        s_data = json.loads(s_data[0])
-
+        try:
+            s_data = json.loads(s_data[0])
+        except Exception as e:
+            print(e)
+            continue
         item_dict = {
             "title": s_data["title"],
             "content": s_data["contentText"],
@@ -48,7 +51,7 @@ async def search_baidu(query: str, max_results: int = 5):
         r = await client.get(url, headers=headers)
         if r.status_code > 399:
             return "内容获取失败"
-        results = parse_baidu_search_result(r.text)[:max_results]
+        results = parse_baidu_search_result(r.content.decode("utf8"))[:max_results]
         raw_content = "\n".join([f"《{item['title']}》:{item['content']}" for item in results])
         return raw_content
 
@@ -81,7 +84,6 @@ async def search_tavily(query: str, api_key: str = None, max_results=5):
     async with httpx.AsyncClient() as client:
         try:
             r = await client.post(url, headers=headers, json=data)
-            print(r.text)
             results = r.json()["results"]
 
             # 压缩内容，只提取 title 和 content
