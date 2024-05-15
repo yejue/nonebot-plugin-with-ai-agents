@@ -21,6 +21,7 @@ _✨ NoneBot AI 助理插件，有页面内容学习、页面内容提取、联�
 ## 快速安装
 
 第一步：右上角 ↗ 点个不要钱的 star 吧，这是不断维护更新的动力。
+这个项目同时提供了不依赖于 nonebot 的普通版本，[点击跳转](https://github.com/yejue/with-ai-agents)
 
 ### nb-cli
 
