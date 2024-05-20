@@ -4,6 +4,7 @@ OpenAI 平台（提供 ChatGPT 系列模型）
 """
 
 import httpx
+from nonebot.log import logger
 from .base import BaseLLMModel
 
 
@@ -46,7 +47,7 @@ class OpenAIModel(BaseLLMModel):
 
         user_message = {"role": "user", "content": question}
         body["messages"].append(user_message)
-        print("openai body: ", body)
+        logger.info("openai body: ", body)
 
         async with httpx.AsyncClient() as client:
             r = await client.post(url, headers=headers, json=body, timeout=self.timeout)
@@ -54,9 +55,9 @@ class OpenAIModel(BaseLLMModel):
             try:
                 ans = r.json()["choices"][0]["message"]["content"]
             except httpx.ReadTimeout as e:
-                print(f"访问大模型超时, {e}")
+                logger.critical(f"访问大模型超时, {e}")
                 ans = "访问大模型超时"
             except Exception as e:
-                print(r.text + str(e))
+                logger.critical(r.text + str(e))
                 ans = "有错误，自己看日志"
             return ans

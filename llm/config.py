@@ -1,8 +1,11 @@
 from pydantic import BaseModel, Field
 from nonebot import get_plugin_config
+from nonebot.log import logger
 
 
-BaseModel.model_config["protected_namespaces"] = ()
+if hasattr(BaseModel, "model_config"):
+    BaseModel.model_config["protected_namespaces"] = ()
+    logger.info("取消 BaseModel 'protected_namespaces' Warning")
 
 
 class ScopedConfig(BaseModel):

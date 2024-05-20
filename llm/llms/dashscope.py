@@ -3,6 +3,7 @@
 相关文档链接：https://help.aliyun.com/zh/dashscope/developer-reference/quick-start
 """
 import httpx
+from nonebot.log import logger
 
 from .base import BaseLLMModel
 
@@ -60,9 +61,9 @@ class DashscopeModel(BaseLLMModel):
                 r = await client.post(url, headers=headers, json=body, timeout=self.timeout)
                 ans = r.json()["output"]["text"]
             except httpx.ReadTimeout as e:
-                print(f"访问大模型超时, {e}")
+                logger.critical(f"访问大模型超时, {e}")
                 ans = "访问大模型超时"
             except Exception as e:
-                print(r.text + str(e))
+                logger.critical(r.text + str(e))
                 ans = "有错误，自己看日志，可能过期了"
             return ans

@@ -3,6 +3,8 @@ import traceback
 import json
 import httpx
 
+from nonebot.log import logger
+
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 
@@ -33,7 +35,7 @@ def parse_baidu_search_result(html_text: str):
         try:
             s_data = json.loads(s_data[0])
         except Exception as e:
-            print(e)
+            logger.critical(e)
             continue
         item_dict = {
             "title": s_data["title"],
@@ -91,7 +93,7 @@ async def search_tavily(query: str, api_key: str = None, max_results=5):
 
             return json.dumps(results, ensure_ascii=False)
         except Exception as e:
-            print(e)
+            logger.critical(e)
             return "内容提取失败"
 
 
@@ -102,7 +104,7 @@ async def get_url_content(url: str):
             r = await client.get(url, headers=headers)
             pure_text = get_page_pure_text(r.text)
         except Exception as e:
-            print(e)
-            print(traceback.format_exc())
+            logger.critical(e)
+            logger.critical(traceback.format_exc())
             return "内容提取失败"
         return pure_text

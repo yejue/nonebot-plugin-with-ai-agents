@@ -3,6 +3,8 @@
 """
 import json
 
+from nonebot.log import logger
+
 from . import agents
 from .config import config
 from .utils import prompts
@@ -41,22 +43,22 @@ async def ask_central_brain(raw_question: str):
     prompt = prompts.get_classifier_prompt(question=raw_question)
     s = prompts.get_classifier_master_prompt()
     classifier_res = await llm.ask_model(question=prompt, system_prompt=s)
-    print(f"raw_classifier_res: {classifier_res}")
+    logger.info(f"raw_classifier_res: {classifier_res}")
 
     try:
         classifier_res = json.loads(classifier_res)
     except Exception as e:
-        print(e)
+        logger.critical(e)
         return "WITH_AI_AGENTS 模型处理失败，试着换点更优秀的模型吧"
 
-    print(f"智脑分类结果：{classifier_res}")
+    logger.info(f"智脑分类结果：{classifier_res}")
 
     # 遍历分类列表，向 agents 发送任务并获取 context
     agent_data = ""
 
     if len(classifier_res) == 1 and classifier_res[0] == 7:
         assemble_prompt = raw_question
-        print("assemble_prompt", assemble_prompt)
+        logger.info("assemble_prompt", assemble_prompt)
     else:
         for num in classifier_res:
             if int(num) == 1:    # 提取页面内容
@@ -75,7 +77,7 @@ async def ask_central_brain(raw_question: str):
 
         # 携带 context 向大模型提问 raw_question
         assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
-        print("assemble_prompt", assemble_prompt)
+        logger.info("assemble_prompt", assemble_prompt)
 
     # Chat History 策略获取
     chat_history_list = ChatService.get_strategically_chat_history(assemble_prompt, max_length=llm.max_length)

@@ -7,6 +7,7 @@ agents 应该被写成一个目录，而 type 应该是一个 .py 文件
 import re
 import subprocess
 from typing import Union
+from nonebot.log import logger
 
 from .config import config
 from .utils import prompts, retrievers
@@ -44,7 +45,7 @@ class Type1:
     ):
         # 从问题中提取 URL
         url = Type1.extract_url_without_llm(question=question)
-        print(f"type1 model res：{url}")
+        logger.info(f"type1 model res：{url}")
         if not url:
             return f"\"{url}\" 的大致内容是：内容提取失败"
 
@@ -65,7 +66,7 @@ class Type2:
     ):
         prompt = prompts.get_type2_prompt(question=question)
         llm_res = await llm.ask_model(question=prompt)
-        print(f"需要联网搜索，llm_res={llm_res}")
+        logger.info(f"需要联网搜索，llm_res={llm_res}")
 
         # 联网搜索
         if config.tavily_api_key:
@@ -92,7 +93,7 @@ class Type4:
     ):
         prompt = prompts.get_type4_prompt(question)
         llm_res = await llm.ask_model(question=prompt)
-        print(f"需要命令执行：{llm_res}")
+        logger.info(f"需要命令执行：{llm_res}")
 
         llm_res = llm_res.strip()
         cmd_res = Type4.command_execute(llm_res)
