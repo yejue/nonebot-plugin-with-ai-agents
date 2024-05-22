@@ -54,6 +54,33 @@ AI Agents 功能包括不限于以下功能：
   注意：由于未做任何的权限控制，这个功能有非常高的风险。</dev> 已移除
 
 
+## 使用
+
+@机器人+任意文本或者私聊机器人+任意文本。
+
+## 示例
+
+### 页面内容学习
+<img src="resources/20240509235750.jpg" width="400"></img>
+
+### 页面提取
+<img src="resources/DC143E126C2B428F2A4EC906DBAA3353.jpg" width="400"></img>
+
+### 联网实时查询
+<img src="resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg" width="400"></img>
+
+
+<img src="resources/28D6083B3583793AA2928A040D7B2A33.jpg" width="400"></img>
+
+
+### AI聊天
+
+<img src="resources/BD568CA36A170E49C2EDFE034BAC138D.jpg" width="400"></img>
+
+### 命令执行
+
+### <img src="resources/6F215C3D9794BF31372FBF8FFD89A049.png" width="400"></img>
+
 
 ## TODOs
 ”！！“ 为近期要做的事情
@@ -124,30 +151,3 @@ openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国�
 | WITH_AI_AGENTS__TAVILY_API_KEY |  否  | 空字符串 | （打算弃用）搜索引擎的 Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
 |  WITH_AI_AGENTS__MODEL_NAME   |  否  | 空字符串 |        你的 AI 模型名称，不填将根据平台使用默认模型        |
 
-## 使用
-
-@机器人+任意文本或者私聊机器人+任意文本。
-
-## 示例
-
-### 页面内容学习
-<img src="resources/20240509235750.jpg" width="400"></img>
-
-### 页面提取
-<img src="resources/DC143E126C2B428F2A4EC906DBAA3353.jpg" width="400"></img>
-
-### 联网实时查询
-<img src="resources/2D1D8DFDDA41583818F49E36AA3EA773.jpg" width="400"></img>
-
-
-<img src="resources/28D6083B3583793AA2928A040D7B2A33.jpg" width="400"></img>
-
-
-
-### AI聊天
-
-<img src="resources/BD568CA36A170E49C2EDFE034BAC138D.jpg" width="400"></img>
-
-### 命令执行
-
-### <img src="resources/6F215C3D9794BF31372FBF8FFD89A049.png" width="400"></img>
