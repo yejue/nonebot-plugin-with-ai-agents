@@ -5,7 +5,13 @@
 
 <h1 align="center">With-AI-Agents</h1>
 
-_✨ NoneBot AI 助理插件，有页面内容学习、页面内容提取、联网实时查询回答、天气查询、命令执行等功能 ✨_
+<p align="center">
+  _✨ NoneBot AI 智能体插件，有页面内容学习、页面内容提取、联网实时查询回答、天气查询、命令执行等功能 ✨_
+</p>
+
+<p align="center">
+  这个文档有点长，建议点开↗右上角的 亖 查看文档目录，会有你想找的
+</p>
 
 <p align="center">
   <a href="https://raw.githubusercontent.com/cscs181/QQ-Github-Bot/master/LICENSE">
@@ -147,7 +153,7 @@ openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国�
 |      配置项       | 必填 |  默认值  |                             说明                             |
 | :---------------: | :--: | :------: | :----------------------------------------------------------: |
 |   WITH_AI_AGENTS__API_KEY    |  是  | 空字符串 |                         你的大模型 API Key                          |
-| WITH_AI_AGENTS_PLATFORM |  是  | 空字符串 | 你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问 |
+| WITH_AI_AGENTS__PLATFORM |  是  | 空字符串 | 你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问 |
 | WITH_AI_AGENTS__TAVILY_API_KEY |  否  | 空字符串 | （打算弃用）搜索引擎的 Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
 |  WITH_AI_AGENTS__MODEL_NAME   |  否  | 空字符串 |        你的 AI 模型名称，不填将根据平台使用默认模型        |
 
