@@ -156,4 +156,6 @@ openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国�
 | WITH_AI_AGENTS__PLATFORM |  是  | 空字符串 | 你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问 |
 | WITH_AI_AGENTS__TAVILY_API_KEY |  否  | 空字符串 | （打算弃用）搜索引擎的 Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
 |  WITH_AI_AGENTS__MODEL_NAME   |  否  | 空字符串 |        你的 AI 模型名称，不填将根据平台使用默认模型        |
+|  WITH_AI_AGENTS__MESSAGE_START   |  否  | 空字符串 |        插件匹配消息前缀，非必填，如果不填则默认空，匹配所有与机器人有关的信息        |
+|  WITH_AI_AGENTS__PRIORITY   |  否  | 999 |        插件响应优先级，非必填，如果不填则默认为 999        |
 

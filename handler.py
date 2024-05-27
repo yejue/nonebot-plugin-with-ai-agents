@@ -1,11 +1,12 @@
 from nonebot.plugin import on_message, on_command
-from nonebot.rule import to_me
+from nonebot.rule import to_me, regex
 from nonebot.adapters import Event
 
 from .llm import central_brain
 from .llm.services import ChatService
+from .llm.config import config
 
-agents = on_message(rule=to_me(), priority=999, block=True)
+agents = on_message(rule=to_me() & regex(fr"^{config.message_start}.*"), priority=config.priority, block=True)
 command = on_command("清理AI聊天记录", priority=13, block=True)
 
 
