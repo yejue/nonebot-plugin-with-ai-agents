@@ -109,6 +109,11 @@ AI Agents 功能包括不限于以下功能：
 
 ## 更新历史
 
+### 0.1.13
+此版本主要为配置项更新
+ - 新增配置项 WITH_AI_AGENTS__MESSAGE_START，详见本文配置项
+ - 新增配置项 WITH_AI_AGENTS__PRIORITY，详见本文配置项
+
 ### 0.1.12
 此版本主要为功能容错能力提升，以及优化打印：
  - `BaseModel.model_config` 属性：在有这个属性时才进行设置，否则不使用，以提高版本容错
@@ -158,4 +163,3 @@ openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国�
 |  WITH_AI_AGENTS__MODEL_NAME   |  否  | 空字符串 |        你的 AI 模型名称，不填将根据平台使用默认模型        |
 |  WITH_AI_AGENTS__MESSAGE_START   |  否  | 空字符串 |        插件匹配消息前缀，非必填，如果不填则默认空，匹配所有与机器人有关的信息        |
 |  WITH_AI_AGENTS__PRIORITY   |  否  | 999 |        插件响应优先级，非必填，如果不填则默认为 999        |
-
