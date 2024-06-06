@@ -71,7 +71,7 @@ AI Agents 功能包括不限于以下功能：
 |   WITH_AI_AGENTS__MODEL_NAME   | 否  | 空字符串 |                         你的 AI 模型名称，不填将根据平台使用默认模型                          |
 | WITH_AI_AGENTS__MESSAGE_START  | 否  | 空字符串 |               调用agent前缀，非必填，如果不填则默认空，匹配所有@Bot和私聊消息(建议一定要配置)               |
 |    WITH_AI_AGENTS__PRIORITY    | 否  | 999 |                         插件响应优先级，非必填，如果不填则默认为 999                          |
-|       AI_Agent_API_Base        | 否  | 对应模型默认api地址|                    发请求的地址，为了兼容自定义api地址,将该地址绑定到当前当前模型平台                    |
+|    WITH_AI_AGENTS__API_URL     | 否  | 对应模型默认api地址|                发请求的地址，为了兼容自定义api地址,将该地址绑定到当前当前模型平台(非必要不填)                 |
 
 ## 可用模型
 
@@ -84,7 +84,6 @@ openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国�
 | openai | gpt-3.5-turbo-0125（推荐，毕竟便宜一点）、gpt-3.5-turbo、gpt-3.5-turbo-16k、gpt-4-turbo、gpt-4-turbo-2024-04-09、gpt-4-32k                  | [openai](https://platform.openai.com/docs/models)                                                    |
 | dashscope | qwen-turbo（推荐，开发时使用）、qwen-plus、qwen-max-longcontext、llama3-8b-instruct（不尽人意）、llama3-70b-instruct（不尽人意）、baichuan-7b-v1（不尽人意） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
 | glm    | glm-3-turbo（推荐）、glm-4                                                                                                       | [glm](https://open.bigmodel.cn/dev/api#language)                                                     |
-| ChatAnyW       | chatanywhere/GPT_API_free项目,降低接口使用成本,解决openai api充值使用难度高,模型名称与openai的相同                                                     | [chatanywhere](https://github.com/chatanywhere/GPT_API_free)                                                                                                 |
 
 
 

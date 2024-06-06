@@ -10,6 +10,7 @@ if hasattr(BaseModel, "model_config"):
 
 class ScopedConfig(BaseModel):
     api_key: str = Field(None, doc="大模型 api_key")
+    api_url: str = Field(None, doc="自定义访问api,非必要不填")
     platform: str = Field(None, doc="大模型访问平台")
     model_name: str = Field(None, doc="选用的大模型名称")
     tavily_api_key: str = Field(None, doc="Tavily 聚合搜索 api_key，但准备弃用")

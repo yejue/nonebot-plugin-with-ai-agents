@@ -42,7 +42,7 @@ class DashscopeModel(BaseLLMModel):
          - system_prompt：系统级提示词
          - message_history: 消息历史列表
         """
-        url = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation'
+        url = self.api_url if self.api_url is not None else 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation'
         headers = self.get_headers()
         body = self.get_body_template(temperature)
 

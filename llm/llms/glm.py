@@ -34,7 +34,7 @@ class GLMModel(BaseLLMModel):
          - system_prompt：系统级提示词
          - message_history: 消息历史列表
         """
-        url = 'https://open.bigmodel.cn/api/paas/v4/chat/completions'
+        url = self.api_url if self.api_url is not None else 'https://open.bigmodel.cn/api/paas/v4/chat/completions'
         headers = self.get_headers()
         body = self.get_body_template(temperature)
 
