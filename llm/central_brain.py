@@ -9,7 +9,7 @@ from . import agents
 from .config import config
 from .utils import prompts
 from .services import ChatService
-from .llms import DashscopeModel, GLMModel, OpenAIModel
+from .llms import DashscopeModel, GLMModel, OpenAIModel,ChatAnyW
 
 
 def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str = None):
@@ -22,7 +22,8 @@ def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str =
         llm = GLMModel(api_key=api_key)
     elif platform == "openai":
         llm = OpenAIModel(api_key=api_key)
-
+    elif platform == "ChatAnw":
+        llm = ChatAnyW(api_key=api_key)
     if model:
         llm.model = model
 

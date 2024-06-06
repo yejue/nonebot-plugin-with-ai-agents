@@ -59,10 +59,43 @@ AI Agents 功能包括不限于以下功能：
 5. <dev>命令执行：AI 从接收到的信息语义中解析出要执行的指令，执行完成将结果转达。执行命令使用的是 subprocess 模块。
   注意：由于未做任何的权限控制，这个功能有非常高的风险。</dev> 已移除
 
+## 配置项
 
-## 使用
+在 nonebot2 项目的 `.env` | `.env.prod` | `.env.dev` 中添加下表中的配置项。
 
-@机器人+任意文本或者私聊机器人+任意文本。
+|              配置项               | 必填 |  默认值  |                                    说明                                     |
+|:------------------------------:|:--:| :------: |:-------------------------------------------------------------------------:|
+|    WITH_AI_AGENTS__API_KEY     | 是  | 空字符串 |                               你的大模型 API Key                               |
+|    WITH_AI_AGENTS__PLATFORM    | 是  | 空字符串 |           你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问            |
+| WITH_AI_AGENTS__TAVILY_API_KEY | 否  | 空字符串 | （打算弃用）搜索引擎的 Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
+|   WITH_AI_AGENTS__MODEL_NAME   | 否  | 空字符串 |                         你的 AI 模型名称，不填将根据平台使用默认模型                          |
+| WITH_AI_AGENTS__MESSAGE_START  | 否  | 空字符串 |               调用agent前缀，非必填，如果不填则默认空，匹配所有@Bot和私聊消息(建议一定要配置)               |
+|    WITH_AI_AGENTS__PRIORITY    | 否  | 999 |                         插件响应优先级，非必填，如果不填则默认为 999                          |
+|       AI_Agent_API_Base        | 否  | 对应模型默认api地址|                    发请求的地址，为了兼容自定义api地址,将该地址绑定到当前当前模型平台                    |
+
+## 可用模型
+
+以下是本插件可以使用的平台和模型配置项，包含但不限于。
+
+openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国内大模型来说，GLM 系列算是各方面都比较好的，这个模型在申请之后可以免费使用一个月。本插件在开发时使用的是 **qwen-turbo** ，这个是阿里云的通义千问系列大模型，在调整了 temperature 之后表现还不错，申请之后可以在一定额度内使用半年。
+
+| 平台（platform） | 模型（model_name）                                                                                                              | 相关链接                                                                                                 |
+|--------|-----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| openai | gpt-3.5-turbo-0125（推荐，毕竟便宜一点）、gpt-3.5-turbo、gpt-3.5-turbo-16k、gpt-4-turbo、gpt-4-turbo-2024-04-09、gpt-4-32k                  | [openai](https://platform.openai.com/docs/models)                                                    |
+| dashscope | qwen-turbo（推荐，开发时使用）、qwen-plus、qwen-max-longcontext、llama3-8b-instruct（不尽人意）、llama3-70b-instruct（不尽人意）、baichuan-7b-v1（不尽人意） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
+| glm    | glm-3-turbo（推荐）、glm-4                                                                                                       | [glm](https://open.bigmodel.cn/dev/api#language)                                                     |
+| ChatAnyW       | chatanywhere/GPT_API_free项目,降低接口使用成本,解决openai api充值使用难度高,模型名称与openai的相同                                                     | [chatanywhere](https://github.com/chatanywhere/GPT_API_free)                                                                                                 |
+
+
+
+## 使用命令
+
+@机器人+在.env文件中配置的命令头(可以为空格)+命令+（空格）+你想问ai的问题。
+
+|     命令       | 解释                                                             |
+|---------------|----------------------------------------------------------------|
+|命令头+WITH_AI_AGENTS__MESSAGE_START（在.env文件中配置的）| 这个命令代表调用该插件（前提是你配置了WITH_AI_AGENTS__MESSAGE_START，否则会匹配你发的所有消息） |
+|命令头+清理AI聊天记录| 该命令用来清理聊天记录                                                    |
 
 ## 示例
 
@@ -137,29 +170,5 @@ AI Agents 功能包括不限于以下功能：
 
 
 
-## 可用模型
-
-以下是本插件可以使用的平台和模型配置项，包含但不限于。
-
-openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国内大模型来说，GLM 系列算是各方面都比较好的，这个模型在申请之后可以免费使用一个月。本插件在开发时使用的是 **qwen-turbo** ，这个是阿里云的通义千问系列大模型，在调整了 temperature 之后表现还不错，申请之后可以在一定额度内使用半年。
-
-| 平台（platform） | 模型（model_name）                                                                                                              | 相关文档                                                     |
-|--------------|-----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------ |
-| openai       | gpt-3.5-turbo-0125（推荐，毕竟便宜一点）、gpt-3.5-turbo、gpt-3.5-turbo-16k、gpt-4-turbo、gpt-4-turbo-2024-04-09、gpt-4-32k                  | [openai](https://platform.openai.com/docs/models)            |
-| dashscope    | qwen-turbo（推荐，开发时使用）、qwen-plus、qwen-max-longcontext、llama3-8b-instruct（不尽人意）、llama3-70b-instruct（不尽人意）、baichuan-7b-v1（不尽人意） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
-| glm          | glm-3-turbo（推荐）、glm-4                                                                                                       | [glm](https://open.bigmodel.cn/dev/api#language)             |
 
 
-
-## 配置项
-
-在 nonebot2 项目的 `.env` | `.env.prod` | `.env.dev` 中添加下表中的配置项。
-
-|      配置项       | 必填 |  默认值  |                             说明                             |
-| :---------------: | :--: | :------: | :----------------------------------------------------------: |
-|   WITH_AI_AGENTS__API_KEY    |  是  | 空字符串 |                         你的大模型 API Key                          |
-| WITH_AI_AGENTS__PLATFORM |  是  | 空字符串 | 你的 AI 模型平台，支持 ChatGPT 系列，ChatGLM 系列，Llama 系列，百川，通义千问 |
-| WITH_AI_AGENTS__TAVILY_API_KEY |  否  | 空字符串 | （打算弃用）搜索引擎的 Key，不填使用百度搜索，获取地址：[Tavily AI](https://app.tavily.com/sign-in) |
-|  WITH_AI_AGENTS__MODEL_NAME   |  否  | 空字符串 |        你的 AI 模型名称，不填将根据平台使用默认模型        |
-|  WITH_AI_AGENTS__MESSAGE_START   |  否  | 空字符串 |        插件匹配消息前缀，非必填，如果不填则默认空，匹配所有与机器人有关的信息        |
-|  WITH_AI_AGENTS__PRIORITY   |  否  | 999 |        插件响应优先级，非必填，如果不填则默认为 999        |
