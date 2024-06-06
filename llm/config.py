@@ -27,6 +27,7 @@ def get_config():
     try:
         plugin_config = get_plugin_config(Config).with_ai_agents
         print("With_AI_Agents: api_key=", plugin_config.api_key)
+        print("With_AI_Agents: api_url=", plugin_config.api_url)
         print("With_AI_Agents: platform=", plugin_config.platform)
         print("With_AI_Agents: model_name=", plugin_config.model_name)
         print("With_AI_Agents：tavily_api_key=", plugin_config.tavily_api_key)

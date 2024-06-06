@@ -9,7 +9,7 @@ from . import agents
 from .config import config
 from .utils import prompts
 from .services import ChatService
-from .llms import DashscopeModel, GLMModel, OpenAIModel,ChatAnyW
+from .llms import DashscopeModel, GLMModel, OpenAIModel
 
 
 def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str = None,api_url: str = None):
