@@ -71,7 +71,6 @@ AI Agents 功能包括不限于以下功能：
 |   WITH_AI_AGENTS__MODEL_NAME   | 否  | 空字符串 |                         你的 AI 模型名称，不填将根据平台使用默认模型                          |
 | WITH_AI_AGENTS__MESSAGE_START  | 否  | 空字符串 |               调用agent前缀，非必填，如果不填则默认空，匹配所有@Bot和私聊消息(建议一定要配置)               |
 |    WITH_AI_AGENTS__PRIORITY    | 否  | 999 |                         插件响应优先级，非必填，如果不填则默认为 999                          |
-|       AI_Agent_API_Base        | 否  | 对应模型默认api地址|                    发请求的地址，为了兼容自定义api地址,将该地址绑定到当前当前模型平台                    |
 
 ## 可用模型
 
