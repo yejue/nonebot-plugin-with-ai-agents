@@ -12,7 +12,7 @@ from .services import ChatService
 from .llms import DashscopeModel, GLMModel, OpenAIModel
 
 
-def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str = None):
+def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str = None,api_url: str = None):
     """获取大模型的询问工具"""
     llm = None
 
@@ -22,10 +22,10 @@ def get_llm_model(platform: str = "dashscope", api_key: str = None, model: str =
         llm = GLMModel(api_key=api_key)
     elif platform == "openai":
         llm = OpenAIModel(api_key=api_key)
-
     if model:
         llm.model = model
-
+    if api_url:
+        llm.api_url = api_url
     return llm
 
 
@@ -35,7 +35,7 @@ async def ask_central_brain(raw_question: str):
         return "WITH_AI_AGENTS 配置获取失败，请检查配置。配置文档参考：https://github.com/yejue/nonebot-plugin-with-ai-agents"
 
     # 选择智脑使用的大模型
-    llm = get_llm_model(config.platform, config.api_key, config.model_name)
+    llm = get_llm_model(config.platform, config.api_key, config.model_name ,config.api_url)
     if not llm:
         return "WITH_AI_AGENTS 大模型获取失败，请检查配置。配置文档参考：https://github.com/yejue/nonebot-plugin-with-ai-agents"
 
