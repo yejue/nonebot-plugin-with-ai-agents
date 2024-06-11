@@ -14,6 +14,7 @@ class DashscopeModel(BaseLLMModel):
     def __init__(self, api_key: str, model: str = "qwen-turbo"):
         self.api_key = api_key
         self.model = model
+        self.default_api_url = "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation"
 
     def get_headers(self):
         headers = {
@@ -42,7 +43,7 @@ class DashscopeModel(BaseLLMModel):
          - system_prompt：系统级提示词
          - message_history: 消息历史列表
         """
-        url = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation'
+        url = self.get_api_url()
         headers = self.get_headers()
         body = self.get_body_template(temperature)
 

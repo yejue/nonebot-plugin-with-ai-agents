@@ -13,6 +13,7 @@ class GLMModel(BaseLLMModel):
     def __init__(self, api_key: str, model: str ="glm-3-turbo"):
         self.api_key = api_key
         self.model = model
+        self.default_api_url = 'https://open.bigmodel.cn/api/paas/v4/chat/completions'
 
     def get_body_template(self, temperature: float):
         body = {
@@ -34,7 +35,7 @@ class GLMModel(BaseLLMModel):
          - system_prompt：系统级提示词
          - message_history: 消息历史列表
         """
-        url = 'https://open.bigmodel.cn/api/paas/v4/chat/completions'
+        url = self.get_api_url()
         headers = self.get_headers()
         body = self.get_body_template(temperature)
 

@@ -79,6 +79,7 @@ class AIService:
         platform = config.platform
         api_key = config.api_key
         model = config.model_name
+        api_url = config.api_url
 
         platform_map = {
             "dashscope": llms.DashscopeModel,
@@ -91,8 +92,12 @@ class AIService:
             return None
 
         llm = platform(api_key=api_key)
+
         if model:
             llm.model = model
+
+        if api_url:
+            llm.api_url = api_url
 
         return llm
 

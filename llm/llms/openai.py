@@ -14,6 +14,9 @@ class OpenAIModel(BaseLLMModel):
         self.api_key = api_key
         self.model = model
 
+        temp = 'https://gateway.ai.cloudflare.com/v1/269867777450cd358cac180511da1722/openai-01/openai/chat/completions'
+        self.default_api_url = temp
+
     def get_body_template(self, temperature: float):
         body = {
             "model": self.model,
@@ -34,8 +37,7 @@ class OpenAIModel(BaseLLMModel):
          - system_prompt：系统级提示词
          - message_history: 消息历史列表
         """
-        url = 'https://gateway.ai.cloudflare.com/v1/269867777450cd358cac180511da1722/openai-01/openai/chat/completions'
-        headers = self.get_headers()
+        url = self.get_api_url()
         body = self.get_body_template(temperature)
 
         if message_history:
