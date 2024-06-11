@@ -6,7 +6,6 @@ agents 应该被写成一个目录，而 type 应该是一个 .py 文件
 """
 import re
 import subprocess
-from typing import Union
 from nonebot.log import logger
 
 from .config import config
@@ -144,8 +143,21 @@ class Type6(BaseType):
         return self.get_ai_abilities()
 
 
+class Type8(BaseType):
+    """百科搜索能力"""
+
+    async def get_agent_context(self, llm: LLM_TYPE, question: str):
+        prompt = prompts.get_type8_prompt(question=question)
+        query = await llm.ask_model(question=prompt)
+        print(query)
+        res = await retrievers.search_baidu_wiki(query)
+        res = res[:3000]
+        return res
+
+
 type1 = Type1()
 type2 = Type2()
 type4 = Type4()
 type5 = Type5()
 type6 = Type6()
+type8 = Type8()

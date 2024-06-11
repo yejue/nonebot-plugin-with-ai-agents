@@ -97,6 +97,33 @@ async def search_tavily(query: str, api_key: str = None, max_results=5):
             return "内容提取失败"
 
 
+def parse_baidu_wiki(html_text: str):
+    """解析百度百科页面信息"""
+    soup = BeautifulSoup(html_text, 'html.parser')
+
+    # 查找所有类名包含 'mainContent_' 的元素
+    main_contents = soup.find_all(class_=lambda x: x and 'mainContent_' in x)
+
+    # 提取第一个元素的文本
+    if main_contents:
+        return main_contents[0].get_text(strip=True)
+    else:
+        return "内容获取失败"
+
+
+async def search_baidu_wiki(query: str):
+    """搜索百度百科"""
+
+    query = quote(query)
+    url = f"https://baike.baidu.com/item/{query}?fromModule=lemma_search-box"
+    async with httpx.AsyncClient() as client:
+        r = await client.get(url, headers=headers, follow_redirects=True)
+        if r.status_code > 399:
+            return "内容获取失败"
+        res = parse_baidu_wiki(r.text)
+    return res
+
+
 async def get_url_content(url: str):
     """提取指定页面内容"""
     async with httpx.AsyncClient() as client:

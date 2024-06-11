@@ -136,6 +136,8 @@ class AIService:
                 elif int(num) == 6:  # 功能列表
                     agent_data += await agents.type6.get_agent_context()
                     agent_data += "\n"
+                elif int(num) == 8:  # 百科搜索能力
+                    agent_data += await agents.type8.get_agent_context(llm=llm, question=raw_question)
 
             assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
 

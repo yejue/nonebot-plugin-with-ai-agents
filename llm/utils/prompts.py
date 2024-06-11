@@ -15,6 +15,7 @@ def get_classifier_prompt(question: str):
     5. 关于你是谁的问题
     6. 关于你有什么功能的问题
     7: 其他问题
+    8: 需要搜索百科的问题，当前支持百度百科
     </Type>
     下面是我的要求:
     (1) 请用json列表的形式输出结果，比如[1], [2, 4], 不要有其他的信息
@@ -170,6 +171,23 @@ def get_type4_prompt(question: str):
         你要回答: cd /root
     
     我的问题是: 
+    """
+    {question}
+    """
+    '''
+    return prompt
+
+
+def get_type8_prompt(question: str):
+    prompt = f'''
+    请从我的问题中提取出要询问“百科”的词条，不要有其他信息。
+    下面是个例子：
+    """
+    用户问题是：用百科搜索一下 "常青藤"
+    你要回答：常青藤
+    """
+    
+    我的问题是:
     """
     {question}
     """
