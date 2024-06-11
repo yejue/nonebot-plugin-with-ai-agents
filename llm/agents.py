@@ -11,10 +11,17 @@ from nonebot.log import logger
 
 from .config import config
 from .utils import prompts, retrievers
-from .llms import BaseLLMModel, DashscopeModel, GLMModel
+from .llms import LLM_TYPE
 
 
-class Type1:
+class BaseType:
+    """Agents 基类"""
+
+    async def get_agent_context(self, llm: LLM_TYPE, question: str):
+        raise NotImplemented
+
+
+class Type1(BaseType):
     """提取页面内容"""
 
     @staticmethod
@@ -28,10 +35,7 @@ class Type1:
         return match.group(0) if match else None
 
     @staticmethod
-    async def extreact_url_with_llm(
-            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
-            question: str
-    ):
+    async def extreact_url_with_llm(llm: LLM_TYPE, question: str):
         """大模型提取 URL"""
         prompt = prompts.get_type1_prompt(question=question)
         url = await llm.ask_model(question=prompt)
@@ -39,10 +43,7 @@ class Type1:
         return url
 
     @staticmethod
-    async def summarize_weblink_content(
-            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
-            question: str
-    ):
+    async def summarize_weblink_content(llm: LLM_TYPE, question: str):
         # 从问题中提取 URL
         url = Type1.extract_url_without_llm(question=question)
         logger.info(f"type1 model res：{url}")
@@ -55,15 +56,16 @@ class Type1:
         result = f"\"{url}\" 的大致内容是：{url_content}"
         return result
 
+    async def get_agent_context(self, llm: LLM_TYPE, question: str):
+        url = await self.summarize_weblink_content(llm=llm, question=question)
+        return url
 
-class Type2:
+
+class Type2(BaseType):
     """联网查询"""
 
     @staticmethod
-    async def get_search_result(
-            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
-            question: str
-    ):
+    async def get_search_result(llm: LLM_TYPE, question: str):
         prompt = prompts.get_type2_prompt(question=question)
         llm_res = await llm.ask_model(question=prompt)
         logger.info(f"需要联网搜索，llm_res={llm_res}")
@@ -76,8 +78,11 @@ class Type2:
         result = f"\"{llm_res}\" 在搜索引擎的搜索结果是：{search_result}"
         return result
 
+    async def get_agent_context(self, llm: LLM_TYPE, question: str):
+        return await self.get_search_result(llm=llm, question=question)
 
-class Type4:
+
+class Type4(BaseType):
     """命令执行"""
 
     @staticmethod
@@ -87,10 +92,7 @@ class Type4:
         return result.stdout, result.stderr
 
     @staticmethod
-    async def get_command_result(
-            llm: Union[DashscopeModel, BaseLLMModel, GLMModel],
-            question: str
-    ):
+    async def get_command_result(llm: LLM_TYPE, question: str):
         prompt = prompts.get_type4_prompt(question)
         llm_res = await llm.ask_model(question=prompt)
         logger.info(f"需要命令执行：{llm_res}")
@@ -100,8 +102,11 @@ class Type4:
         data = f"命令 {llm_res} 在当前服务器的执行结果是：{cmd_res}"
         return data
 
+    async def get_agent_context(self, llm: LLM_TYPE, question: str):
+        return await self.get_command_result(llm=llm, question=question)
 
-class Type5:
+
+class Type5(BaseType):
     """你是谁"""
 
     @staticmethod
@@ -115,8 +120,11 @@ class Type5:
         text = f"关于你的信息：{prompt}"
         return text
 
+    async def get_agent_context(self, *args, **kwargs):
+        return self.get_who_you_are()
 
-class Type6:
+
+class Type6(BaseType):
     """功能列表"""
 
     @staticmethod
@@ -131,6 +139,9 @@ class Type6:
         '''
 
         return text
+
+    async def get_agent_context(self, *args, **kwargs):
+        return self.get_ai_abilities()
 
 
 type1 = Type1()

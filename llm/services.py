@@ -121,18 +121,21 @@ class AIService:
         else:
             for num in classifier_res:
                 if int(num) == 1:  # 提取页面内容
-                    agent_data += await agents.type1.summarize_weblink_content(llm=llm, question=raw_question) + "\n"
+                    agent_data += await agents.type1.get_agent_context(llm=llm, question=raw_question)
+                    agent_data += "\n"
                 elif int(num) == 2:  # 联网搜索能力
-                    agent_data += await agents.type2.get_search_result(llm=llm, question=raw_question)
+                    agent_data += await agents.type2.get_agent_context(llm=llm, question=raw_question)
+                    agent_data += "\n"
                 elif int(num) == 3:  # 某地天气
                     pass
                 elif int(num) == 4:  # 执行指令
-                    # agent_data += await agents.type4.get_command_result(llm=llm, question=raw_question)
                     pass
                 elif int(num) == 5:  # who are you
-                    agent_data += agents.type5.get_who_you_are() + "\n"
+                    agent_data += await agents.type5.get_agent_context()
+                    agent_data += "\n"
                 elif int(num) == 6:  # 功能列表
-                    agent_data += agents.type6.get_ai_abilities() + "\n"
+                    agent_data += await agents.type6.get_agent_context()
+                    agent_data += "\n"
 
             assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
 
