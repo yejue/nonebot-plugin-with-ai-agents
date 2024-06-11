@@ -66,13 +66,12 @@ class ChatService:
 class AIService:
     """AI 相关控制类"""
 
-    def get_custom_soul_prompt(self):
-        """获取自定义人格提示词"""
-        ...
-
-    def get_assistant_prompt(self):
+    @staticmethod
+    def get_assistant_prompt():
         """获取 AI 默认人格提示词"""
-        ...
+        if config.custom_soul:
+            return config.custom_soul
+        return prompts.get_kurisu_prompt()
 
     @staticmethod
     def get_llm():

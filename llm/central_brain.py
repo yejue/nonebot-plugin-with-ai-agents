@@ -34,7 +34,8 @@ async def ask_central_brain(raw_question: str):
     chat_history_list = ChatService.get_strategically_chat_history(assemble_prompt, max_length=llm.max_length)
 
     # 发送正式提问
-    s = prompts.get_kurisu_prompt()
+    s = AIService.get_assistant_prompt()
+
     assemble_res = await llm.ask_model(
         question=assemble_prompt,
         system_prompt=s,

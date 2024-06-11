@@ -106,7 +106,13 @@ class Type5:
 
     @staticmethod
     def get_who_you_are():
-        text = f"关于你的信息：{prompts.get_kurisu_prompt()}"
+
+        if config.custom_soul:
+            prompt = config.custom_soul
+        else:
+            prompt = prompts.get_kurisu_prompt()
+
+        text = f"关于你的信息：{prompt}"
         return text
 
 
