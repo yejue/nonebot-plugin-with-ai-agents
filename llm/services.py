@@ -1,5 +1,7 @@
 import json
 
+from nonebot.log import logger
+
 from .mem_stores import chat_history
 from .config import config
 from .utils import prompts
@@ -107,14 +109,14 @@ class AIService:
         # 将用户提问发送到大模型分类器，获取分类列表
         prompt = prompts.get_classifier_prompt(question=raw_question)
         s = prompts.get_classifier_master_prompt()
-        classifier_res = await llm.ask_model(question=prompt, system_prompt=s)
 
         try:
+            classifier_res = await llm.ask_model(question=prompt, system_prompt=s)
             classifier_res = json.loads(classifier_res)
         except Exception as e:
-            raise e
+            return False, str(e)
 
-        return classifier_res
+        return True, classifier_res
 
     @staticmethod
     async def get_assistant_context(llm: llms.LLM_TYPE, classifier_res: list, raw_question: str):
@@ -147,3 +149,32 @@ class AIService:
             assemble_prompt = prompts.get_assemble_prompt(question=raw_question, agent_data=agent_data)
 
         return assemble_prompt
+
+    @staticmethod
+    async def ask_llm_with_agents(llm: llms.LLM_TYPE, classifier_res: list, raw_question):
+        """携带 Agents 上下文向 LLM 提问"""
+        try:
+            # 获取上下文
+            assemble_prompt = await AIService.get_assistant_context(llm, classifier_res, raw_question)
+            logger.info("assemble_prompt", assemble_prompt)
+
+            # 获取聊天历史
+            chat_history_list = ChatService.get_strategically_chat_history(assemble_prompt, max_length=llm.max_length)
+
+            # 发送正式提问
+            s = AIService.get_assistant_prompt()
+
+            assemble_res = await llm.ask_model(
+                question=assemble_prompt,
+                system_prompt=s,
+                message_history=chat_history_list,
+                temperature=0.3
+            )
+
+            # 将 AI 回答追加到历史
+            ChatService.add_message_to_history(text=raw_question, role="user")
+            ChatService.add_message_to_history(text=assemble_res, role="assistant")
+        except Exception as e:
+            return False, str(e)
+
+        return True, assemble_res

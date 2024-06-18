@@ -16,13 +16,6 @@ class DashscopeModel(BaseLLMModel):
         self.model = model
         self.default_api_url = "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation"
 
-    def get_headers(self):
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': f'Bearer {self.api_key}'
-        }
-        return headers
-
     def get_body_template(self, temperature: float):
         body = {
             "model": self.model,
@@ -61,10 +54,10 @@ class DashscopeModel(BaseLLMModel):
             try:
                 r = await client.post(url, headers=headers, json=body, timeout=self.timeout)
                 ans = r.json()["output"]["text"]
-            except httpx.ReadTimeout as e:
+            except httpx.ConnectTimeout as e:
                 logger.critical(f"访问大模型超时, {e}")
-                ans = "访问大模型超时"
+                raise httpx.ConnectTimeout("访问大模型超时")
             except Exception as e:
                 logger.critical(r.text + str(e))
-                ans = "有错误，自己看日志，可能过期了"
+                raise
             return ans
