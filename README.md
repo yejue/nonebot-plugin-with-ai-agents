@@ -123,15 +123,15 @@ bot: OK，共清理 {count} 条记录
 
 ## 可用模型
 
-以下是本插件可以使用的平台和模型配置项，包含但不限于。
+以下是本插件可以使用的平台和模型配置项，包含但不限于。（实际上，凡是和下面三种平台一致的 history 输入格式都可以使用。可以通过 `WITH_AI_AGENTS__API_URL` 配置来更改实际提供服务的接口地址。）
 
 openai 的话效果肯定是拔尖的，但是价格也是拔尖的。对于国内大模型来说，GLM 系列算是各方面都比较好的，这个模型在申请之后可以免费使用一个月。本插件在开发时使用的是 **qwen-turbo** ，这个是阿里云的通义千问系列大模型，在调整了 temperature 之后表现还不错，申请之后可以在一定额度内使用半年。
 
 | 平台（platform） | 模型（model_name）                                                                                                              | 相关文档                                                     |
 |--------------|-----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------ |
-| openai       | gpt-3.5-turbo-0125（推荐，毕竟便宜一点）、gpt-3.5-turbo、gpt-3.5-turbo-16k、gpt-4-turbo、gpt-4-turbo-2024-04-09、gpt-4-32k                  | [openai](https://platform.openai.com/docs/models)            |
-| dashscope    | qwen-turbo（推荐，开发时使用）、qwen-plus、qwen-max-longcontext、llama3-8b-instruct（不尽人意）、llama3-70b-instruct（不尽人意）、baichuan-7b-v1（不尽人意） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
-| glm          | glm-3-turbo（推荐）、glm-4                                                                                                       | [glm](https://open.bigmodel.cn/dev/api#language)             |
+| openai       | gpt 系列                  | [openai](https://platform.openai.com/docs/models)            |
+| dashscope    | 千问系列、llama 系列（这个系列比较一般） | [dashscope](https://help.aliyun.com/zh/dashscope/developer-reference/model-introduction?spm=a2c4g.11186623.0.i2) |
+| glm          | glm 系列                                                                                                      | [glm](https://open.bigmodel.cn/dev/api#language)             |
 
 
 
